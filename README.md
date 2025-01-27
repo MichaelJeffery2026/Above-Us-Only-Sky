@@ -1,6 +1,6 @@
 # Above-Us-Only-Sky
 
-## Imagine by John Lenin
+## Imagine by John Lennon
 ### Imagine there's no heaven
 ### It's easy if you try
 ### No hell below us
