@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Tower
+  - Base
+  - Projectile Collision
   layers:
   - Default
   - TransparentFX
@@ -11,11 +15,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Character Collision
+  - Projectile Collision
+  - Player Projectiles
+  - Player
+  - Enemies
   - 
   - 
   - 
