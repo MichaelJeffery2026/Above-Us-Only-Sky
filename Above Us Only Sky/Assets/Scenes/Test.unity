@@ -277,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 169014088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.636, y: 1.839, z: 0}
+  m_LocalPosition: {x: 1.51, y: 2.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -401,18 +401,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5f1a27642b569439a02b5b00ccc66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 100
-  _rb: {fileID: 169014090}
-  bulletPrefab: {fileID: 1434009532}
-  firePoint: {fileID: 211382449}
+  hp: 0
+  moveSpeed: 100
+  range: 10
+  damage: 25
+  fireRate: 120
+  towerHealingAmount: 0
+  towerHealingRange: 0
   bulletSpeed: 20
-  bulletRange: 10
-  playerBulletDamage: 20
-  lineRenderer: {fileID: 169014094}
-  lineDuration: 0.1
   targetLayer:
     serializedVersion: 2
     m_Bits: 1024
+  lineDuration: 0.1
+  _rb: {fileID: 169014090}
+  bulletPrefab: {fileID: 1434009532}
+  firePoint: {fileID: 211382449}
+  lineRenderer: {fileID: 169014094}
 --- !u!1 &211382448
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,10 +706,11 @@ Transform:
   m_GameObject: {fileID: 347784197}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.43, y: -2.51, z: 0}
+  m_LocalPosition: {x: 16.9, y: 6.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2096178067}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &347784201
@@ -2764,7 +2769,7 @@ Transform:
   m_GameObject: {fileID: 1434009532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.045, y: 3.502, z: 0}
+  m_LocalPosition: {x: 15.190001, y: 0.27999997, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4712,6 +4717,37 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &2096178066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096178067}
+  m_Layer: 10
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2096178067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096178066}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 347784200}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2130533141
 GameObject:
   m_ObjectHideFlags: 0
@@ -4727,7 +4763,7 @@ GameObject:
   - component: {fileID: 2130533144}
   - component: {fileID: 2130533143}
   m_Layer: 7
-  m_Name: Projectile Collission
+  m_Name: Projectile Collision
   m_TagString: Projectile Collision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
