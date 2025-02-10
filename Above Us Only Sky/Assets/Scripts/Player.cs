@@ -2,28 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Controller : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("Final")]
-    public int hp = 100;
-    public float moveSpeed = 50f;
-    public float range = 10f;
-    public int damage = 25;
-    public float fireRate = 120f;
+
+    [Tooltip("The number of hitpoints the player has.")]
+    public int playerHP = 0;
+
+    [Tooltip("The speed at which the player moves.")]
+    public float moveSpeed = 0f;
+
+    [Tooltip("The radius of the player's shooting range in tiles.")]
+    public float range = 0f;
+
+    [Tooltip("The amount of damage each projectile deals.")]
+    public int playerDamage = 0;
+
+    [Tooltip("The fire rate of the player in rounds per minute.")]
+    public float fireRate = 0f;
+
+    [Tooltip("The amount of healing each instance provides.")]
     public int towerHealingAmount = 0;
+
+    [Tooltip("The radius of the player's healing range in tiles.")]
     public int towerHealingRange = 0;
 
+
     [Header("Testing")]
+
+    [Tooltip("The speed at which the player's bullets travel in tiles per second.")]
     public float bulletSpeed = 10f;
+
+    [Tooltip("The layer that the player's targets are on. Should be 'Enemies'.")]
     public LayerMask targetLayer;
+
+    [Tooltip("The time that the shooting debug line appears on the screen.")]
     public float lineDuration = 0.1f;
+
+    [Tooltip("The player's assigned rigid body 2D.")]
     public Rigidbody2D _rb;
+
+    [Tooltip("The player's assigned bullet prefab.")]
     public GameObject bulletPrefab;
+
+    [Tooltip("Where the bullet projectiles will appear from")]
     public Transform firePoint;
+
+    [Tooltip("The line renderer for the shooting debug line")]
     public LineRenderer lineRenderer;
 
-    private Vector2 _moveDir = Vector2.zero;  
-    private bool canShoot = true;  
+    // For use in calculating player movement. MUST be set to Vector2.zero in this line.
+    private Vector2 _moveDir = Vector2.zero; 
+
+    // For use in fire rate cooldown. MUST be set to true in this line.
+    private bool canShoot = true;
+
+    private int currentHealth;
+
+    private void Start()
+    {
+        currentHealth = playerHP;
+    }
 
     private void Update()
     {
@@ -53,6 +92,7 @@ public class Player_Controller : MonoBehaviour
         if (hit.collider != null)
         {
             Debug.Log("hit");
+            hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(playerDamage);
             endPoint = hit.point;
         }
 
@@ -81,5 +121,15 @@ public class Player_Controller : MonoBehaviour
         lineRenderer.enabled = true;
         yield return new WaitForSeconds(lineDuration);
         lineRenderer.enabled = false;
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log(gameObject.name + " : " + damage + " damage : " + currentHealth + " health");
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
-public class CustomTileRange : MonoBehaviour
+public class Tower : MonoBehaviour
 {
     [Header("Final Properties")]
     public int towerCost = 0;
@@ -33,11 +34,22 @@ public class CustomTileRange : MonoBehaviour
     public LayerMask objectLayer; // Layer mask for checking placed objects
     private bool placingTower = false; // Toggle for placement state
 
+    private int currentHealth;
+
+    private void Start()
+    {
+        currentHealth = towerHP;
+    }
 
     private void Update()
     {
         UpdateCenterTile();
         CheckAndShoot();
+        PlaceTowerCheck();
+    }
+
+    private void PlaceTowerCheck()
+    {
         if (placingTower && Input.GetMouseButtonDown(0)) // Left Click
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -90,6 +102,7 @@ public class CustomTileRange : MonoBehaviour
                 StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
                 if (!canShoot) return;
                 Shoot(collider.gameObject);
+                collider.gameObject.GetComponent<Enemy>().TakeDamage(towerDamage);
                 StartCoroutine(ShootingCooldown()); // Start cooldown timer
                 break;
             }
@@ -147,7 +160,6 @@ public class CustomTileRange : MonoBehaviour
 
     if (hit.collider != null) // If we hit something before reaching the player
     {
-        Debug.Log("hit");
         endPoint = hit.point; // Update endpoint to hit location
     }
 
@@ -158,9 +170,20 @@ public class CustomTileRange : MonoBehaviour
     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
     rb.velocity = direction * bulletSpeed;
 
-    float bulletTime = bulletRange / bulletSpeed;
-    Destroy(bullet, bulletTime);
-}
+    StartCoroutine(DestroyBulletAfterTravel(bullet, firePoint2D, endPoint));
+    }
+
+    private IEnumerator DestroyBulletAfterTravel(GameObject bullet, Vector2 start, Vector2 end)
+    {
+        // Continuously check the distance between the bullet's position and the target position
+        while (Vector2.Distance(bullet.transform.position, start) < Vector2.Distance(start, end))
+        {
+            yield return null; // Wait for the next frame
+        }
+
+        // Destroy the bullet once it has traveled the full distance to the target
+        Destroy(bullet);
+    }
 
 
     IEnumerator DrawRay(Vector3 start, Vector3 end)
@@ -171,5 +194,16 @@ public class CustomTileRange : MonoBehaviour
         lineRenderer.enabled = true;
         yield return new WaitForSeconds(lineDuration);
         lineRenderer.enabled = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log(gameObject.name + " : " + damage + " damage : " + currentHealth + " health");
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
