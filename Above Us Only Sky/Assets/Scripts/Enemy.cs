@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int enemyHP = 100;
+
     private int currentHealth;
 
-    private void Start()
+    private void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth = enemyHP;
     }
 
     public void TakeDamage(int damage)

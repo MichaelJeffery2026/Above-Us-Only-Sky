@@ -17,9 +17,9 @@ TagManager:
   - UI
   - Character Collision
   - Projectile Collision
-  - Player Projectiles
+  - Projectiles
   - Player
-  - Enemies
+  - Enemy
   - Tower
   - 
   - 

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header("Final")]
-
     [Tooltip("The number of hitpoints the player has.")]
     public int playerHP = 0;
 
@@ -28,36 +26,30 @@ public class Player : MonoBehaviour
     public int towerHealingRange = 0;
 
 
-    [Header("Testing")]
-
-    [Tooltip("The speed at which the player's bullets travel in tiles per second.")]
-    public float bulletSpeed = 10f;
-
-    [Tooltip("The layer that the player's targets are on. Should be 'Enemies'.")]
-    public LayerMask targetLayer;
-
-    [Tooltip("The time that the shooting debug line appears on the screen.")]
-    public float lineDuration = 0.1f;
-
-    [Tooltip("The player's assigned rigid body 2D.")]
-    public Rigidbody2D _rb;
-
-    [Tooltip("The player's assigned bullet prefab.")]
-    public GameObject bulletPrefab;
-
-    [Tooltip("Where the bullet projectiles will appear from")]
-    public Transform firePoint;
-
-    [Tooltip("The line renderer for the shooting debug line")]
-    public LineRenderer lineRenderer;
-
+    //The speed at which the player's bullets travel in tiles per second
+    private float bulletSpeed = 20f;
+    //The layer that the player's targets are on. Should be 'Enemies'
+    private LayerMask targetLayer;
+    // The time that the shooting debug line appears on the screen
+    private float lineDuration = 0.1f;
+    private Rigidbody2D _rb;
+    private GameObject bulletPrefab;
+    private Transform firePoint;
+    private LineRenderer lineRenderer;
     // For use in calculating player movement. MUST be set to Vector2.zero in this line.
     private Vector2 _moveDir = Vector2.zero; 
-
     // For use in fire rate cooldown. MUST be set to true in this line.
     private bool canShoot = true;
-
     private int currentHealth;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        bulletPrefab = GameObject.Find("Player Bullet");
+        firePoint = transform.Find("Fire Point").GetComponent<Transform>();
+        lineRenderer = GetComponent<LineRenderer>();
+        targetLayer = LayerMask.GetMask("Enemy");
+    }
 
     private void Start()
     {
