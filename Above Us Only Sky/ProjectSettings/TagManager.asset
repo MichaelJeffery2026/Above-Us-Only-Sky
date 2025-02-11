@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Tower
+  - Base
+  - Projectile Collision
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Character Collision
+  - Projectile Collision
+  - Projectiles
+  - Player
+  - Enemy
+  - Tower
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Water
+    uniqueID: 1587447875
+    locked: 0
+  - name: Ground
+    uniqueID: 2707712529
+    locked: 0
+  - name: Feature1
+    uniqueID: 2950783369
+    locked: 0
+  - name: Feature2
+    uniqueID: 1080922761
+    locked: 0
+  - name: Character
+    uniqueID: 3049470717
+    locked: 0
+  - name: UI
+    uniqueID: 1759272927
+    locked: 0
