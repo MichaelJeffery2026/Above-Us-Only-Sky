@@ -51,8 +51,11 @@ TagManager:
   - name: Ground
     uniqueID: 2707712529
     locked: 0
-  - name: Features
+  - name: Feature1
     uniqueID: 2950783369
+    locked: 0
+  - name: Feature2
+    uniqueID: 1080922761
     locked: 0
   - name: Character
     uniqueID: 3049470717
