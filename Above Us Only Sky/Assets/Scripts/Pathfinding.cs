@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class AStarPathfinding : MonoBehaviour
+public class Pathfinding : MonoBehaviour
 {
     public Tilemap walkableTilemap; // Assign the tilemap that marks walkable areas
     public Transform target; // Assign the target GameObject dynamically
@@ -104,10 +104,19 @@ public class AStarPathfinding : MonoBehaviour
     {
         List<Vector3Int> neighbors = new List<Vector3Int>
         {
+            /*
             new Vector3Int(position.x + 1, position.y, 0),
             new Vector3Int(position.x - 1, position.y, 0),
             new Vector3Int(position.x, position.y + 1, 0),
-            new Vector3Int(position.x, position.y - 1, 0)
+            */
+            new Vector3Int(position.x, position.y + 1, 0),
+            new Vector3Int(position.x + 1, position.y + 1, 0),
+            new Vector3Int(position.x + 1, position.y, 0),
+            new Vector3Int(position.x + 1, position.y - 1, 0),
+            new Vector3Int(position.x, position.y - 1, 0),
+            new Vector3Int(position.x - 1, position.y - 1, 0),
+            new Vector3Int(position.x - 1, position.y, 0),
+            new Vector3Int(position.x - 1, position.y + 1, 0),
         };
         return neighbors;
     }
