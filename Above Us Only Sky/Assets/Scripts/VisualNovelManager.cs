@@ -8,21 +8,48 @@ using TMPro;
 
 public class VisualNovelManager : MonoBehaviour
 {
+    [Tooltip("The UI Text element to display dialogue.")]
     public TextMeshProUGUI dialogueText;
-    public RawImage characterImage1;
-    public RawImage characterImage2;
+
+    [Tooltip("The UI RawImage element for the background.")]
     public RawImage background;
+
+    [Tooltip("List of character UI elements, each corresponding to a character name.")]
+    public List<CharacterUI> characterUIs;
+
+    [Tooltip("Dictionary mapping character names to their textures.")]
     public Dictionary<string, Texture2D> characterTextures;
+
+    [Tooltip("Dictionary mapping background names to their textures.")]
     public Dictionary<string, Texture2D> backgroundTextures;
+
+    [Tooltip("Audio source for playing typing sound.")]
     public AudioSource typingAudioSource;
+
+    [Tooltip("Audio clip to play for typing sound effect.")]
     public AudioClip typingSound;
-    public TextAsset dialogueFile; // Public variable for text file input
+
+    [Tooltip("Text asset containing the dialogue script.")]
+    public TextAsset dialogueFile;
+
     private Queue<(string characterName, string dialogue)> dialogueQueue = new Queue<(string, string)>();
     private bool isTyping = false;
+    private bool skipTyping = false;
+
+    [Tooltip("Speed at which characters appear during typing.")]
     public float typingSpeed = 0.05f;
+
+    [Tooltip("Pause duration after punctuation like periods and ellipses.")]
     public float punctuationPause = 0.3f;
-    private string lastSpeaker = "";
-    private string previousSpeaker = "";
+
+    [Tooltip("Color for dimmed characters when they are not speaking.")]
+    public Color dimmedColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+
+    [Tooltip("Color for the active speaking character.")]
+    public Color normalColor = Color.white;
+
+    [Tooltip("Height offset applied to non-speaking characters.")]
+    public float loweredHeightOffset = -50f;
 
     private void Start()
     {
@@ -32,7 +59,8 @@ public class VisualNovelManager : MonoBehaviour
             { "Huginn//Echo", LoadTexture("Assets/Sprites/Character/Huginn.png") },
             { "Castellan-5", LoadTexture("Assets/Sprites/Character/Castellan.png") },
             { "C3RB-0X", LoadTexture("Assets/Sprites/Character/C3RB-0X.png") },
-            { "Ezekiel Z3K Cross", LoadTexture("Assets/Sprites/Character/Z3K.png") }
+            { "Ezekiel Z3K Cross", LoadTexture("Assets/Sprites/Character/Z3K.png") },
+            { "Z3K", LoadTexture("Assets/Sprites/Character/Z3K.png") }
         };
 
         backgroundTextures = new Dictionary<string, Texture2D>
@@ -57,8 +85,8 @@ public class VisualNovelManager : MonoBehaviour
         byte[] fileData = File.ReadAllBytes(path);
         Texture2D texture = new Texture2D(32, 32, TextureFormat.ARGB32, false);
         texture.LoadImage(fileData);
-        texture.filterMode = FilterMode.Point; // Ensures crisp pixels
-        texture.wrapMode = TextureWrapMode.Clamp; // Prevents edge bleeding
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
         return texture;
     }
 
@@ -96,10 +124,15 @@ public class VisualNovelManager : MonoBehaviour
             dialogueText.text = "";
             var (characterName, currentDialogue) = dialogueQueue.Dequeue();
 
-            UpdateSpeakers(characterName);
+            UpdateCharacterUI(characterName);
 
             foreach (char letter in currentDialogue)
             {
+                if (skipTyping)
+                {
+                    dialogueText.text = currentDialogue;
+                    break;
+                }
                 dialogueText.text += letter;
                 if (typingAudioSource && typingSound)
                 {
@@ -116,29 +149,26 @@ public class VisualNovelManager : MonoBehaviour
             }
 
             isTyping = false;
+            skipTyping = false;
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         }
     }
 
-    private void UpdateSpeakers(string characterName)
+    private void UpdateCharacterUI(string activeCharacter)
     {
-        if (characterName != lastSpeaker)
+        foreach (var characterUI in characterUIs)
         {
-            previousSpeaker = lastSpeaker;
-            lastSpeaker = characterName;
+            if (characterUI.name == activeCharacter || (characterUI.name == "Z3K" && activeCharacter == "Ezekiel Z3K Cross"))
+            {
+                characterUI.image.color = normalColor;
+                characterUI.image.rectTransform.anchoredPosition = new Vector2(characterUI.image.rectTransform.anchoredPosition.x, 0);
+            }
+            else
+            {
+                characterUI.image.color = dimmedColor;
+                characterUI.image.rectTransform.anchoredPosition = new Vector2(characterUI.image.rectTransform.anchoredPosition.x, loweredHeightOffset);
+            }
         }
-        UpdateCharacterImages();
-    }
-
-    private void UpdateCharacterImages()
-    {
-        characterImage1.enabled = !string.IsNullOrEmpty(previousSpeaker) && characterTextures.ContainsKey(previousSpeaker);
-        characterImage2.enabled = !string.IsNullOrEmpty(lastSpeaker) && characterTextures.ContainsKey(lastSpeaker);
-
-        if (characterImage1.enabled)
-            characterImage1.texture = characterTextures[previousSpeaker];
-        if (characterImage2.enabled)
-            characterImage2.texture = characterTextures[lastSpeaker];
     }
 
     private void UpdateBackground(string bgName)
@@ -148,4 +178,19 @@ public class VisualNovelManager : MonoBehaviour
             background.texture = backgroundTextures[bgName];
         }
     }
+
+    private void Update()
+    {
+        if (isTyping && Input.GetMouseButtonDown(0))
+        {
+            skipTyping = true;
+        }
+    }
+}
+
+[System.Serializable]
+public class CharacterUI
+{
+    public string name;
+    public RawImage image;
 }
