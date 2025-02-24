@@ -12,11 +12,12 @@ public class Tower : MonoBehaviour
     public float fireRate = 0.0f;
     public Vector3Int[] customOffsets; // Custom shape offsets
 
-    private Tilemap tilemap; // The Tilemap where tiles exist
-    private Vector3Int centerTilePosition; // The tile position of the object
+    public Tilemap tilemap; // The Tilemap where tiles exist
+    public Vector3Int centerTilePosition; // The tile position of the object
     private Color gizmoColor = Color.red;
     private Transform firePoint;
-    private GameObject bulletPrefab;
+    [Tooltip("Assign bullet object.")]
+    public GameObject bulletPrefab;
     private string target = "Enemy";
     private float bulletSpeed = 20f;
     private LayerMask targetLayer;
@@ -25,15 +26,14 @@ public class Tower : MonoBehaviour
     private bool canShoot = true; // Cooldown flag
 
     private float gridSize = 1f;
-    private Tilemap groundTilemap;
+    public Tilemap groundTilemap;
     private LayerMask objectLayer; // Layer mask for checking placed objects
     private bool placingTower = false; // Toggle for placement state
     private int currentHealth;
 
     private void Awake()
     {
-        tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
-        bulletPrefab = GameObject.Find("Tower Bullet");
+        // tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
         firePoint = transform.Find("Fire Point").GetComponent<Transform>();
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask("Enemy");
@@ -172,6 +172,8 @@ public class Tower : MonoBehaviour
 
     // Instantiate Bullet
     GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+    Renderer bulletRenderer = bullet.GetComponent<Renderer>();
+        bulletRenderer.transform.Rotate(Vector3.forward * Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI); // Rotates the bullet sprite in the direction of shooting
     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
     rb.velocity = direction * bulletSpeed;
 
