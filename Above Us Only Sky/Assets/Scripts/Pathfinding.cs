@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 public class Pathfinding : MonoBehaviour
 {
     public Tilemap walkableTilemap; // Assign the tilemap that marks walkable areas
-    public Transform target; // Assign the target GameObject dynamically
+    public string target; // Assign the target GameObject dynamically
     public float moveSpeed = 5f; // Movement speed
 
     private List<Vector3> path = new List<Vector3>(); // Stores the computed path
@@ -15,12 +15,45 @@ public class Pathfinding : MonoBehaviour
     {
         if (target == null) return;
 
-        if (path.Count == 0 || pathIndex >= path.Count)
+        Debug.Log(path.Count);
+        if (path.Count == 0 || pathIndex >= path.Count) //Path not reevaluted until destination is reached (may change)
         {
-            FindPath(transform.position, target.position);
+            GameObject[] towers = GameObject.FindGameObjectsWithTag(target);
+            int shortestPathLength = 255;
+            int shortestPathIndex = 0;
+
+            for (int i = 0; i < towers.Length; i++)
+            {
+                int currPathLength = PathLength(transform.position, towers[i].transform.position);
+                if (currPathLength < shortestPathLength)
+                {
+                    shortestPathLength = currPathLength;
+                    shortestPathIndex = i;
+                }
+            }
+            FindPath(transform.position, towers[shortestPathIndex].transform.position);
         }
 
         MoveAlongPath();
+    }
+
+    private int PathLength(Vector3 startPos, Vector3 targetPos)
+    {
+        Vector3Int start = walkableTilemap.WorldToCell(startPos);
+        Vector3Int goal = walkableTilemap.WorldToCell(targetPos);
+
+        if (!IsWalkable(goal))
+        {
+            Debug.Log("Target position is not walkable!");
+            return 255;
+        }
+
+        List<Vector3Int> gridPath = AStarAlgorithm(start, goal);
+        if (gridPath == null)
+        {
+            return 255;
+        }
+        return gridPath.Count;
     }
 
     private void FindPath(Vector3 startPos, Vector3 targetPos)
@@ -40,7 +73,7 @@ public class Pathfinding : MonoBehaviour
         {
             path.Clear();
             pathIndex = 0;
-            foreach (Vector3Int tilePos in gridPath)
+            foreach (Vector3Int tilePos in gridPath) 
             {
                 path.Add(walkableTilemap.GetCellCenterWorld(tilePos)); // Convert to world position
             }

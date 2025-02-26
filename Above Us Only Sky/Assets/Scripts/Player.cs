@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     // The time that the shooting debug line appears on the screen
     private float lineDuration = 0.1f;
     private Rigidbody2D _rb;
-    private GameObject bulletPrefab;
+    public GameObject bulletPrefab;
     private Transform firePoint;
     private LineRenderer lineRenderer;
     // For use in calculating player movement. MUST be set to Vector2.zero in this line.
@@ -91,6 +91,8 @@ public class Player : MonoBehaviour
         StartCoroutine(DrawRay(firePoint2D, endPoint));
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        Renderer bulletRenderer = bullet.GetComponent<Renderer>();
+        bulletRenderer.transform.Rotate(Vector3.forward * Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI); // Rotates the bullet sprite in the direction of shooting
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
 
