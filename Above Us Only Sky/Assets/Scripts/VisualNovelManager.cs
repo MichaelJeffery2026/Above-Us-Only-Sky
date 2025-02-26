@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class VisualNovelManager : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class VisualNovelManager : MonoBehaviour
 
         backgroundTextures = new Dictionary<string, Texture2D>
         {
-            
+
         };
 
         if (dialogueFile != null)
@@ -95,19 +96,26 @@ public class VisualNovelManager : MonoBehaviour
         string[] lines = fullText.Split('\n');
         foreach (string line in lines)
         {
-            if (line.StartsWith("[show ") && line.EndsWith("]"))
+            string trimmedLine = line.Trim();
+            if (string.IsNullOrEmpty(trimmedLine)) continue;
+
+            if (trimmedLine.StartsWith("[show ") && trimmedLine.EndsWith("]"))
             {
-                string bgName = line.Substring(6, line.Length - 7);
+                string bgName = trimmedLine.Substring(6, trimmedLine.Length - 7);
                 UpdateBackground(bgName);
                 continue;
             }
 
-            Match match = Regex.Match(line, "^(.*?): (.*)$");
+            Match match = Regex.Match(trimmedLine, "^(.*?): (.*)$");
             if (match.Success)
             {
                 string characterName = match.Groups[1].Value;
                 string dialogue = match.Groups[2].Value;
                 dialogueQueue.Enqueue((characterName, characterName + ": " + dialogue));
+            }
+            else
+            {
+                dialogueQueue.Enqueue(("", trimmedLine));
             }
         }
         if (!isTyping)
@@ -152,13 +160,14 @@ public class VisualNovelManager : MonoBehaviour
             skipTyping = false;
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         }
+        LoadNextScene();
     }
 
     private void UpdateCharacterUI(string activeCharacter)
     {
         foreach (var characterUI in characterUIs)
         {
-            if (characterUI.name == activeCharacter || (characterUI.name == "Z3K" && activeCharacter == "Ezekiel Z3K Cross"))
+            if (!string.IsNullOrEmpty(activeCharacter) && (characterUI.name == activeCharacter || (characterUI.name == "Z3K" && activeCharacter == "Ezekiel Z3K Cross")))
             {
                 characterUI.image.color = normalColor;
                 characterUI.image.rectTransform.anchoredPosition = new Vector2(characterUI.image.rectTransform.anchoredPosition.x, 0);
@@ -176,6 +185,15 @@ public class VisualNovelManager : MonoBehaviour
         if (backgroundTextures.ContainsKey(bgName))
         {
             background.texture = backgroundTextures[bgName];
+        }
+    }
+
+    private void LoadNextScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(currentSceneIndex + 1);
         }
     }
 
