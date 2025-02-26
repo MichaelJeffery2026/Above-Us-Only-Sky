@@ -24,6 +24,7 @@ public class Spawner : MonoBehaviour
         {
             // Perform the operation
             GameObject _enemy = Instantiate(enemy, transform.position, transform.rotation);
+            _enemy.SetActive(true);
 
             // Reset the timer
             timer = 0f;

@@ -5,20 +5,23 @@ using UnityEngine.Tilemaps;
 public class Pathfinding : MonoBehaviour
 {
     public Tilemap walkableTilemap; // Assign the tilemap that marks walkable areas
-    public string target; // Assign the target GameObject dynamically
+    public string tag; // Assign the target GameObject dynamically
     public float moveSpeed = 5f; // Movement speed
 
     private List<Vector3> path = new List<Vector3>(); // Stores the computed path
     private int pathIndex = 0; // Tracks the current waypoint
 
+    private Vector3 lastTargetPosition = new Vector3 (0.0f, 0.0f, 0.0f);
+    private Transform target;
+
     void Update()
     {
-        if (target == null) return;
+        if (tag == null) return;
 
-        Debug.Log(path.Count);
-        if (path.Count == 0 || pathIndex >= path.Count) //Path not reevaluted until destination is reached (may change)
+        if (path.Count == 0 || pathIndex >= path.Count || lastTargetPosition != target.position) //Path not reevaluted until destination is reached (may change)
         {
-            GameObject[] towers = GameObject.FindGameObjectsWithTag(target);
+            Debug.Log("Find Path");
+            GameObject[] towers = GameObject.FindGameObjectsWithTag(tag);
             int shortestPathLength = 255;
             int shortestPathIndex = 0;
 
@@ -31,6 +34,8 @@ public class Pathfinding : MonoBehaviour
                     shortestPathIndex = i;
                 }
             }
+            target = towers[shortestPathIndex].transform;
+            lastTargetPosition = target.position;
             FindPath(transform.position, towers[shortestPathIndex].transform.position);
         }
 
@@ -69,7 +74,7 @@ public class Pathfinding : MonoBehaviour
 
         List<Vector3Int> gridPath = AStarAlgorithm(start, goal);
 
-        if (gridPath != null)
+        if (gridPath != null && gridPath.Count > 0)
         {
             path.Clear();
             pathIndex = 0;
@@ -143,13 +148,13 @@ public class Pathfinding : MonoBehaviour
             new Vector3Int(position.x, position.y + 1, 0),
             */
             new Vector3Int(position.x, position.y + 1, 0),
-            new Vector3Int(position.x + 1, position.y + 1, 0),
+            // new Vector3Int(position.x + 1, position.y + 1, 0),
             new Vector3Int(position.x + 1, position.y, 0),
-            new Vector3Int(position.x + 1, position.y - 1, 0),
+            // new Vector3Int(position.x + 1, position.y - 1, 0),
             new Vector3Int(position.x, position.y - 1, 0),
-            new Vector3Int(position.x - 1, position.y - 1, 0),
+            // new Vector3Int(position.x - 1, position.y - 1, 0),
             new Vector3Int(position.x - 1, position.y, 0),
-            new Vector3Int(position.x - 1, position.y + 1, 0),
+            // new Vector3Int(position.x - 1, position.y + 1, 0),
         };
         return neighbors;
     }

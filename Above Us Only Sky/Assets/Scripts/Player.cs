@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
         StartCoroutine(DrawRay(firePoint2D, endPoint));
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+        bullet.SetActive(true);
         Renderer bulletRenderer = bullet.GetComponent<Renderer>();
         bulletRenderer.transform.Rotate(Vector3.forward * Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI); // Rotates the bullet sprite in the direction of shooting
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
