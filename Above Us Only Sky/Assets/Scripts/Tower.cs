@@ -25,6 +25,9 @@ public class Tower : MonoBehaviour
     private float lineDuration = 0.2f;
     private bool canShoot = true; // Cooldown flag
 
+    private bool isShooting = false;
+    private Animator mAnimator;
+
     private float gridSize = 1f;
     public Tilemap groundTilemap;
     private LayerMask objectLayer; // Layer mask for checking placed objects
@@ -44,6 +47,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         currentHealth = towerHP;
+        mAnimator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -104,14 +108,24 @@ public class Tower : MonoBehaviour
 
             if (collider != null && collider.CompareTag(target))
             {
+
                 StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
                 if (!canShoot) return;
+
+                if (!isShooting)
+                {
+                    mAnimator.SetTrigger("Firing");
+                }
+                isShooting = true;
                 Shoot(collider.gameObject);
                 collider.gameObject.GetComponent<Enemy>().TakeDamage(towerDamage);
                 StartCoroutine(ShootingCooldown()); // Start cooldown timer
                 break;
             }
         }
+        isShooting = false;
+        mAnimator.SetTrigger("Stop Firing");
+
     }
 
     private IEnumerator ShootingCooldown()
@@ -172,6 +186,7 @@ public class Tower : MonoBehaviour
 
     // Instantiate Bullet
     GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+    bullet.SetActive(true);
     Renderer bulletRenderer = bullet.GetComponent<Renderer>();
         bulletRenderer.transform.Rotate(Vector3.forward * Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI); // Rotates the bullet sprite in the direction of shooting
     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
