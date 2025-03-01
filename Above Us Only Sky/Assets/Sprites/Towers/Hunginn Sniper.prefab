@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -1245496579
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9991d408a51ee104eaf99b3357d52080, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6e0ea17f4a50a54888bd435599eeaa6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   towerCost: 0
   towerHP: 0
   towerDamage: 35
-  fireRate: 100
+  fireRate: 48
   customOffsets:
   - {x: 1, y: -1, z: 0}
   - {x: 1, y: 0, z: 0}
@@ -221,10 +221,8 @@ MonoBehaviour:
   - {x: 4, y: -1, z: 0}
   - {x: 4, y: 0, z: 0}
   - {x: 4, y: 1, z: 0}
-  tilemap: {fileID: 0}
   centerTilePosition: {x: -5, y: -2, z: 0}
-  bulletPrefab: {fileID: 0}
-  groundTilemap: {fileID: 0}
+  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
 --- !u!95 &3019913099900771609
 Animator:
   serializedVersion: 5
@@ -235,7 +233,7 @@ Animator:
   m_GameObject: {fileID: 6598975213502537597}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c71bf5266fb919b4fa777f5ff84d6711, type: 2}
+  m_Controller: {fileID: 9100000, guid: c0aa1876e6a2b467a98bba0dadcf3858, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
