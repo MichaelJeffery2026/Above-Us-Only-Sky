@@ -33,6 +33,7 @@ public class Tower : MonoBehaviour
     private LayerMask objectLayer; // Layer mask for checking placed objects
     private bool placingTower = false; // Toggle for placement state
     private int currentHealth;
+    private GameManager gameManager;
 
     private void Awake()
     {
@@ -42,6 +43,7 @@ public class Tower : MonoBehaviour
         //bulletPrefab = GameObject.Find("Tower Bullet");
         targetLayer = LayerMask.GetMask("Enemy");
         objectLayer = LayerMask.GetMask("Tower");
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Start()
@@ -227,7 +229,7 @@ public class Tower : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            gameManager.RemoveTower(centerTilePosition);
         }
     }
 }
