@@ -12,7 +12,7 @@ public class Tower : MonoBehaviour
     public float fireRate = 0.0f;
     public Vector3Int[] customOffsets; // Custom shape offsets
 
-    public Tilemap tilemap; // The Tilemap where tiles exist
+    private Tilemap tilemap; // The Tilemap where tiles exist
     public Vector3Int centerTilePosition; // The tile position of the object
     private Color gizmoColor = Color.red;
     private Transform firePoint;
@@ -29,18 +29,18 @@ public class Tower : MonoBehaviour
     private Animator mAnimator;
 
     private float gridSize = 1f;
-    public Tilemap groundTilemap;
+    private Tilemap groundTilemap;
     private LayerMask objectLayer; // Layer mask for checking placed objects
     private bool placingTower = false; // Toggle for placement state
     private int currentHealth;
 
     private void Awake()
     {
-        // tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
+        tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
         firePoint = transform.Find("Fire Point").GetComponent<Transform>();
         lineRenderer = GetComponent<LineRenderer>();
+        //bulletPrefab = GameObject.Find("Tower Bullet");
         targetLayer = LayerMask.GetMask("Enemy");
-        groundTilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
         objectLayer = LayerMask.GetMask("Tower");
     }
 
@@ -66,9 +66,9 @@ public class Tower : MonoBehaviour
 
             float snappedX = Mathf.Round((mousePos.x - gridSize / 2f) / gridSize) * gridSize + gridSize / 2f;
             float snappedY = Mathf.Round((mousePos.y - gridSize / 2f) / gridSize) * gridSize + gridSize / 2f;
-            Vector3Int tilePosition = groundTilemap.WorldToCell(new Vector3(snappedX, snappedY, 0f));
+            Vector3Int tilePosition = tilemap.WorldToCell(new Vector3(snappedX, snappedY, 0f));
 
-            if (groundTilemap.HasTile(tilePosition))
+            if (tilemap.HasTile(tilePosition))
             {
                 Collider2D hit = Physics2D.OverlapPoint(new Vector2(snappedX, snappedY), objectLayer);
                 if (hit == null)
@@ -95,8 +95,6 @@ public class Tower : MonoBehaviour
 
     private void CheckAndShoot()
     {
-        if (!canShoot) return; // Prevent shooting if cooldown is active
-
         List<Vector3Int> tilesInRange = GetTilesInRange();
 
         foreach (Vector3Int tilePos in tilesInRange)
@@ -110,22 +108,25 @@ public class Tower : MonoBehaviour
             {
 
                 StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
-                if (!canShoot) return;
 
-                if (!isShooting)
+                if (!isShooting) //Activate shooting animation
                 {
+                    isShooting = true;
                     mAnimator.SetTrigger("Firing");
                 }
-                isShooting = true;
+
+                if (!canShoot) return; // Prevent shooting if cooldown is active
+
                 Shoot(collider.gameObject);
-                collider.gameObject.GetComponent<Enemy>().TakeDamage(towerDamage);
                 StartCoroutine(ShootingCooldown()); // Start cooldown timer
-                break;
+                return;
             }
         }
-        isShooting = false;
-        mAnimator.SetTrigger("Stop Firing");
-
+        if (isShooting) //Deactive shooting animation if no target found
+        {
+            isShooting = false;
+            mAnimator.SetTrigger("Stop Firing");
+        }
     }
 
     private IEnumerator ShootingCooldown()
@@ -192,10 +193,10 @@ public class Tower : MonoBehaviour
     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
     rb.velocity = direction * bulletSpeed;
 
-    StartCoroutine(DestroyBulletAfterTravel(bullet, firePoint2D, endPoint));
+    StartCoroutine(DestroyBulletAfterTravel(bullet, firePoint2D, endPoint, target));
     }
 
-    private IEnumerator DestroyBulletAfterTravel(GameObject bullet, Vector2 start, Vector2 end)
+    private IEnumerator DestroyBulletAfterTravel(GameObject bullet, Vector2 start, Vector2 end, GameObject target)
     {
         // Continuously check the distance between the bullet's position and the target position
         while (Vector2.Distance(bullet.transform.position, start) < Vector2.Distance(start, end))
@@ -205,6 +206,7 @@ public class Tower : MonoBehaviour
 
         // Destroy the bullet once it has traveled the full distance to the target
         Destroy(bullet);
+        target.GetComponent<Enemy>().TakeDamage(towerDamage);
     }
 
 
