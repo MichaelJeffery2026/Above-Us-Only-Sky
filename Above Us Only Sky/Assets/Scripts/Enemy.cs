@@ -11,7 +11,10 @@ public class Enemy : MonoBehaviour
     private GameObject[] numberImages;
     private GameObject pathTarget;
 
+    private Animator mAnimator;
+
     private bool canHit = true;
+    private bool isHitting = false;
 
     private void Start()
     {
@@ -24,6 +27,7 @@ public class Enemy : MonoBehaviour
             numberImages[i] = GameObject.Find("Number_" + i); 
         }
         */
+        mAnimator = GetComponent<Animator>();
     }
 
     private void Awake()
@@ -38,8 +42,30 @@ public class Enemy : MonoBehaviour
             pathTarget = this.GetComponent<Pathfinding>().getTarget();
             if (Vector3.Distance(pathTarget.transform.position, transform.position) <= 1.0f)
             {
+                if (!isHitting)
+                {
+                    isHitting = true;
+                    mAnimator.SetTrigger("Hitting");
+                    if (pathTarget.transform.position.x < transform.position.x)
+                    {
+                        this.GetComponent<SpriteRenderer>().flipX = true;
+                    }
+                    else
+                    {
+                        this.GetComponent<SpriteRenderer>().flipX = false;
+                    }
+                }
                 if (!canHit) { return; }
                 Hit();
+            }
+            else
+            {
+                this.GetComponent<SpriteRenderer>().flipX = false;
+                if (isHitting)
+                {
+                    isHitting = false;
+                    mAnimator.SetTrigger("Stop Hitting");
+                }
             }
         }
     }
@@ -60,7 +86,7 @@ public class Enemy : MonoBehaviour
 
     private void DisplayDamage(int damage)
     {
-        //GameObject digit = Instantiate(numberImages[damage % 10], transform.position, Quaternion.identity);
+        //GameObject digit = Instantiate(numberImages[damage % 10], transform.position, Quaternion.identity);   
         //digit.
     }
 
