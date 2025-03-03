@@ -27,13 +27,13 @@ public class Tower : MonoBehaviour
 
     private bool isShooting = false;
     private Animator mAnimator;
+    private Renderer objectRenderer;
 
     private float gridSize = 1f;
     private Tilemap groundTilemap;
     private LayerMask objectLayer; // Layer mask for checking placed objects
     private bool placingTower = false; // Toggle for placement state
     private int currentHealth;
-    private GameManager gameManager;
 
     private void Awake()
     {
@@ -43,13 +43,13 @@ public class Tower : MonoBehaviour
         //bulletPrefab = GameObject.Find("Tower Bullet");
         targetLayer = LayerMask.GetMask("Enemy");
         objectLayer = LayerMask.GetMask("Tower");
-        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Start()
     {
         currentHealth = towerHP;
         mAnimator = GetComponent<Animator>();
+        objectRenderer = GetComponent<Renderer>();
     }
 
     private void Update()
@@ -229,7 +229,16 @@ public class Tower : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            gameManager.RemoveTower(centerTilePosition);
+            Destroy(gameObject);
+            return;
         }
+        StartCoroutine(PaintRed());
+    }
+
+    private IEnumerator PaintRed()
+    {
+        objectRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f); // Wait for 0.1 seconds
+        objectRenderer.material.color = Color.white;
     }
 }
