@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        bulletPrefab = GameObject.Find("Player Bullet");
+        //bulletPrefab = GameObject.Find("Player Bullet");
         firePoint = transform.Find("Fire Point").GetComponent<Transform>();
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask("Enemy");

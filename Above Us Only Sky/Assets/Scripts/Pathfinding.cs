@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 public class Pathfinding : MonoBehaviour
 {
-    public Tilemap walkableTilemap; // Assign the tilemap that marks walkable areas
+    private Tilemap walkableTilemap; // Assign the tilemap that marks walkable areas
     public string tag; // Assign the target GameObject dynamically
     public float moveSpeed = 5f; // Movement speed
 
@@ -12,15 +12,20 @@ public class Pathfinding : MonoBehaviour
     private int pathIndex = 0; // Tracks the current waypoint
 
     private Vector3 lastTargetPosition = new Vector3 (0.0f, 0.0f, 0.0f);
-    private Transform target;
+    public GameObject target;
+
+    private void Start()
+    {
+        walkableTilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
+    }
+
 
     void Update()
     {
         if (tag == null) return;
 
-        if (path.Count == 0 || pathIndex >= path.Count || lastTargetPosition != target.position) //Path not reevaluted until destination is reached (may change)
+        if (target == null || path.Count == 0 || pathIndex >= path.Count || lastTargetPosition != target.transform.position) //Path not reevaluted until destination is reached (may change)
         {
-            Debug.Log("Find Path");
             GameObject[] towers = GameObject.FindGameObjectsWithTag(tag);
             int shortestPathLength = 255;
             int shortestPathIndex = 0;
@@ -34,8 +39,8 @@ public class Pathfinding : MonoBehaviour
                     shortestPathIndex = i;
                 }
             }
-            target = towers[shortestPathIndex].transform;
-            lastTargetPosition = target.position;
+            target = towers[shortestPathIndex];
+            lastTargetPosition = target.transform.position;
             FindPath(transform.position, towers[shortestPathIndex].transform.position);
         }
 
@@ -180,6 +185,16 @@ public class Pathfinding : MonoBehaviour
         {
             pathIndex++;
         }
+    }
+
+    public GameObject getTarget()
+    {
+        return target;
+    }
+
+    public bool hasTarget()
+    {
+        return (target != null);
     }
 }
 
