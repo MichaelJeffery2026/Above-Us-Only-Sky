@@ -27,6 +27,7 @@ public class Tower : MonoBehaviour
 
     private bool isShooting = false;
     private Animator mAnimator;
+    private Renderer objectRenderer;
 
     private float gridSize = 1f;
     private Tilemap groundTilemap;
@@ -48,6 +49,7 @@ public class Tower : MonoBehaviour
     {
         currentHealth = towerHP;
         mAnimator = GetComponent<Animator>();
+        objectRenderer = GetComponent<Renderer>();
     }
 
     private void Update()
@@ -228,6 +230,15 @@ public class Tower : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            return;
         }
+        StartCoroutine(PaintRed());
+    }
+
+    private IEnumerator PaintRed()
+    {
+        objectRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f); // Wait for 0.1 seconds
+        objectRenderer.material.color = Color.white;
     }
 }

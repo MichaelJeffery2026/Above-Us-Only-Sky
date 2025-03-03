@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerCost: 0
-  towerHP: 0
+  towerHP: 150
   towerDamage: 5
   fireRate: 432
   customOffsets:

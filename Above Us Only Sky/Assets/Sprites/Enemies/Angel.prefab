@@ -206,6 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHP: 100
+  hitRate: 60
+  damage: 50
 --- !u!95 &2184395901726878472
 Animator:
   serializedVersion: 5
@@ -239,6 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b927d5539e6ef574d8a92242855facd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkableTilemap: {fileID: 0}
   tag: Tower
   moveSpeed: 1
+  target: {fileID: 0}

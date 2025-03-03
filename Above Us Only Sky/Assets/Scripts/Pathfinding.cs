@@ -12,7 +12,7 @@ public class Pathfinding : MonoBehaviour
     private int pathIndex = 0; // Tracks the current waypoint
 
     private Vector3 lastTargetPosition = new Vector3 (0.0f, 0.0f, 0.0f);
-    private Transform target;
+    public GameObject target;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class Pathfinding : MonoBehaviour
     {
         if (tag == null) return;
 
-        if (path.Count == 0 || pathIndex >= path.Count || lastTargetPosition != target.position) //Path not reevaluted until destination is reached (may change)
+        if (target == null || path.Count == 0 || pathIndex >= path.Count || lastTargetPosition != target.transform.position) //Path not reevaluted until destination is reached (may change)
         {
             GameObject[] towers = GameObject.FindGameObjectsWithTag(tag);
             int shortestPathLength = 255;
@@ -39,8 +39,8 @@ public class Pathfinding : MonoBehaviour
                     shortestPathIndex = i;
                 }
             }
-            target = towers[shortestPathIndex].transform;
-            lastTargetPosition = target.position;
+            target = towers[shortestPathIndex];
+            lastTargetPosition = target.transform.position;
             FindPath(transform.position, towers[shortestPathIndex].transform.position);
         }
 
@@ -185,6 +185,16 @@ public class Pathfinding : MonoBehaviour
         {
             pathIndex++;
         }
+    }
+
+    public GameObject getTarget()
+    {
+        return target;
+    }
+
+    public bool hasTarget()
+    {
+        return (target != null);
     }
 }
 
