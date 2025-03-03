@@ -5,8 +5,14 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public Tilemap groundTilemap;
+    public float GoldCooldown = 3;
 
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
+
+    private void Update()
+    {
+        
+    }
 
     public bool TryPlaceTower(Vector3Int tilePosition, GameObject towerPrefab)
     {

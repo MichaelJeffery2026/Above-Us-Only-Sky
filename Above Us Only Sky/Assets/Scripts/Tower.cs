@@ -11,6 +11,7 @@ public class Tower : MonoBehaviour
     public int towerDamage = 0;
     public float fireRate = 0.0f;
     public Vector3Int[] customOffsets; // Custom shape offsets
+    public bool IsUnique = false;
 
     private Tilemap tilemap; // The Tilemap where tiles exist
     public Vector3Int centerTilePosition; // The tile position of the object

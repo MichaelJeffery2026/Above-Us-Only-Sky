@@ -9,11 +9,15 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private GameObject currentTower;
     private SpriteRenderer currentSpriteRenderer;
     private Camera mainCamera;       
-    private GameManager gameManager; 
+    private GameManager gameManager;
+    private Tower towerScript;
+
     private void Start()
     {
         mainCamera = Camera.main;
         gameManager = FindObjectOfType<GameManager>();
+        towerScript = towerPrefab.GetComponent<Tower>();
+        isUnique = towerScript.IsUnique;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
