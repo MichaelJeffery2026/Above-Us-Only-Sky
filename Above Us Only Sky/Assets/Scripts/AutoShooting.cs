@@ -139,14 +139,17 @@ public class AutoShooting : MonoBehaviour
     private IEnumerator DestroyBulletAfterTravel(GameObject bullet, Vector2 start, Vector2 end, GameObject target)
     {
         // Continuously check the distance between the bullet's position and the target position
-        while (Vector2.Distance(bullet.transform.position, start) < Vector2.Distance(start, end))
+        while (target != null && Vector2.Distance(bullet.transform.position, start) < Vector2.Distance(start, end))
         {
             yield return null; // Wait for the next frame
         }
 
         // Destroy the bullet once it has traveled the full distance to the target
         Destroy(bullet);
-        target.GetComponent<Health>().TakeDamage(damage); //WORK HERE
+        if (target != null)
+        {
+            target.GetComponent<Health>().TakeDamage(damage);
+        }
     }
 
     IEnumerator DrawRay(Vector3 start, Vector3 end)

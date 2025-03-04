@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3053496582154742553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.029, y: -0.128, z: 0}
+  m_LocalPosition: {x: -0.029, y: -0.032, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 1545511279610895517}
   - component: {fileID: -4559172330397202232}
   m_Layer: 10
-  m_Name: Angel
+  m_Name: Mage
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: -1245496579
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cbef231c6da37c1478bac1eb3fdae147, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b4ea23bbd73d4e01ac4678f6569e828, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -182,7 +182,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0010223389, y: 0.004096985}
+  m_Offset: {x: 0.013827324, y: -0.02471304}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -193,7 +193,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.37529755, y: 0.6968651}
+  m_Size: {x: 0.7978382, y: 0.75448513}
   m_EdgeRadius: 0
 --- !u!95 &2184395901726878472
 Animator:
@@ -205,7 +205,7 @@ Animator:
   m_GameObject: {fileID: 6974993311159797125}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 00d8d088bde6d4416a3c149458f0b4eb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8cf7808b18e0d462798b7fa867d3e6c8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -242,12 +242,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
-  fireRate: 72
+  damage: 50
+  fireRate: 102.85
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
-  - {x: 0, y: 0, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: 1a762e6ac5b5a4b8f8fe860f93201797, type: 3}
+  - {x: -1, y: 0, z: 0}
+  - {x: -1, y: 1, z: 0}
+  - {x: -1, y: -1, z: 0}
+  - {x: -2, y: 0, z: 0}
+  - {x: -2, y: 1, z: 0}
+  - {x: -2, y: -1, z: 0}
+  - {x: -3, y: 0, z: 0}
+  - {x: -3, y: 1, z: 0}
+  - {x: -3, y: -1, z: 0}
+  bulletPrefab: {fileID: 7955356696755575130, guid: 3991cc4915f4544b4b7a93f7ed15ba42, type: 3}
   target: Tower
   targetLayerName: Tower
 --- !u!120 &1545511279610895517
@@ -366,4 +374,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 200

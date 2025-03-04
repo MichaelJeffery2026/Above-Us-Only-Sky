@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3289008815522910703}
   - component: {fileID: 2683679940697257664}
   - component: {fileID: 8858202924438651136}
+  - component: {fileID: -7958148843046564111}
   m_Layer: 11
   m_Name: Home Base
   m_TagString: Tower
@@ -236,12 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerCost: 0
-  towerHP: 1000
-  towerDamage: 0
-  fireRate: 0
-  customOffsets: []
-  centerTilePosition: {x: -5, y: -2, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
+  IsUnique: 0
 --- !u!61 &8858202924438651136
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -287,3 +283,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7958148843046564111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111443920340800786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 500

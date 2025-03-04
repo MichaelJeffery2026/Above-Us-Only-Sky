@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2264120072932039982}
   - component: {fileID: 3310466603044297659}
   - component: {fileID: 296663243875831296}
+  - component: {fileID: 1519178477314283853}
+  - component: {fileID: 8114407787260170908}
   m_Layer: 11
   m_Name: M_Robot
   m_TagString: Tower
@@ -30,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1992995203262545364}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.57, y: -3.09, z: 0}
+  m_LocalPosition: {x: -0.359, y: -3.565, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -206,13 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerCost: 0
-  towerHP: 300
-  towerDamage: 8
-  fireRate: 432
-  customOffsets:
-  - {x: 1, y: 0, z: 0}
-  centerTilePosition: {x: -5, y: -2, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
+  IsUnique: 0
 --- !u!95 &3310466603044297659
 Animator:
   serializedVersion: 5
@@ -279,6 +275,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64422077, y: 0.86432123}
   m_EdgeRadius: 0
+--- !u!114 &1519178477314283853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992995203262545364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 500
+--- !u!114 &8114407787260170908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992995203262545364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  fireRate: 60
+  centerTilePosition: {x: 0, y: 0, z: 0}
+  customOffsets:
+  - {x: 0, y: 0, z: 0}
+  bulletPrefab: {fileID: 7955356696755575130, guid: 1a762e6ac5b5a4b8f8fe860f93201797, type: 3}
+  target: Enemy
+  targetLayerName: Enemy
 --- !u!1 &4196487908348430976
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 4196487908348430976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.413, y: -0.09, z: 0}
+  m_LocalPosition: {x: -0.036, y: -0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
