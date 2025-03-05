@@ -30,7 +30,12 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         currentSpriteRenderer = currentTower.AddComponent<SpriteRenderer>();
         currentSpriteRenderer.sortingLayerName = "Character";
 
-        currentSpriteRenderer.sprite = towerPrefab.GetComponent<SpriteRenderer>().sprite;
+        GameObject tempInstance = GameObject.Instantiate(towerPrefab);
+        Sprite sprite = tempInstance.GetComponent<SpriteRenderer>().sprite;
+
+        GameObject.Destroy(tempInstance);
+
+        currentSpriteRenderer.sprite = sprite;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -53,7 +58,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(eventData.position);
             Vector3Int tilePosition = gameManager.groundTilemap.WorldToCell(mouseWorldPosition);
 
-            bool placedSuccessfully = gameManager.TryPlaceTower(tilePosition, towerPrefab);
+            bool placedSuccessfully = gameManager.TryPlaceTower(tilePosition, towerPrefab, towerScript);
             Destroy(currentTower);
             currentTower = null;
 

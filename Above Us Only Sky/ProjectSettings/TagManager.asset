@@ -8,6 +8,8 @@ TagManager:
   - Tower
   - Base
   - Projectile Collision
+  - DisabledCover
+  - Sprite
   layers:
   - Default
   - TransparentFX

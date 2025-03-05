@@ -6,10 +6,12 @@ using Unity.VisualScripting;
 
 public class Tower : MonoBehaviour
 {
+    public string towerName = "";
     public int towerCost = 0;
     public int towerHP = 0;
     public int towerDamage = 0;
     public float fireRate = 0.0f;
+    public int cooldown = 5;
     public Vector3Int[] customOffsets; // Custom shape offsets
     public bool IsUnique = false;
 

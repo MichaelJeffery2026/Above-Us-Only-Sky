@@ -8,13 +8,14 @@ public class GameManager : MonoBehaviour
     public float GoldCooldown = 3;
 
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
+    private TowerManager towerManager;
 
     private void Update()
     {
-        
+        towerManager = FindAnyObjectByType<TowerManager>();
     }
 
-    public bool TryPlaceTower(Vector3Int tilePosition, GameObject towerPrefab)
+    public bool TryPlaceTower(Vector3Int tilePosition, GameObject towerPrefab, Tower tower)
     {
         if (groundTilemap.HasTile(tilePosition) && !placedTowers.ContainsKey(tilePosition))
         {
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
             GameObject newTower = Instantiate(towerPrefab, worldPosition, Quaternion.identity);
 
             placedTowers[tilePosition] = newTower;  
+
+            towerManager.placedTower(tower);
             return true;  
         }
 

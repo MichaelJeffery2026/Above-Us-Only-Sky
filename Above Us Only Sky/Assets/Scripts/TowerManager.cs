@@ -1,13 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public struct TowerInfo
+public class TowerInfo
 {
     public GameObject towerPrefab;
+    public Tower tower;
     public Sprite sprite;
+    public bool isDisabled = false;
+    public int cooldownLeft = 0;
+
+    public void Initialize()
+    {
+        if (towerPrefab != null)
+        {
+            GameObject tempInstance = GameObject.Instantiate(towerPrefab);
+            tower = tempInstance.GetComponent<Tower>();
+
+            if (tower == null)
+            {
+                Debug.LogError($"Tower component missing on {towerPrefab.name}");
+            }
+
+            GameObject.Destroy(tempInstance);
+        }
+    }
 }
 
 [System.Serializable]
@@ -16,6 +36,26 @@ public class PanelInfo
     public DragAndDrop panel;
     public Image disabledCover;
     public Image sprite;
+    public TextMeshProUGUI cooldown;
+
+    public void Initialize()
+    {
+        if (panel != null)
+        {
+            foreach (Image i in panel.GetComponentsInChildren<Image>(true)) {
+                if (i.CompareTag("DisabledCover"))
+                {
+                    disabledCover = i;
+                    disabledCover.enabled = false;
+                }
+
+                if (i.CompareTag("Sprite"))
+                {
+                    sprite = i;
+                }
+            }
+        }
+    }
 }
 
 public class TowerManager : MonoBehaviour
@@ -27,6 +67,16 @@ public class TowerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (PanelInfo p in panels)
+        {
+            p.Initialize();
+        }
+
+        foreach (TowerInfo t in towers)
+        {
+            t.Initialize();
+        }
+
         ChangePanels();
     }
 
@@ -71,6 +121,45 @@ public class TowerManager : MonoBehaviour
         {
             panels[i].sprite.sprite = towers[currentStartIndex + i].sprite;
             panels[i].panel.towerPrefab = towers[currentStartIndex + i].towerPrefab;
+
+            if (towers[currentStartIndex + i].isDisabled)
+            {
+                panels[i].panel.enabled = false;
+                panels[i].disabledCover.enabled = true;
+                //panels[i].cooldown.SetText("" + towers[currentStartIndex + i].cooldownLeft);
+            } else
+            {
+                panels[i].panel.enabled = true;
+                panels[i].disabledCover.enabled = false;
+                //panels[i].cooldown.enabled = false;
+            }
         }
+    }
+
+    public void placedTower(Tower tower)
+    {
+        for (int i = 0; i < towers.Count; i++)
+        {
+            if (towers[i].tower.towerName == tower.towerName)
+            {
+                towers[i].isDisabled =  true;
+                int cooldown = towers[i].tower.cooldown;
+                towers[i].cooldownLeft = cooldown;
+                StartCoroutine(CooldownTimer(towers[i]));
+            }
+        }
+    }
+
+    private IEnumerator CooldownTimer(TowerInfo towerInfo)
+    {
+        while (towerInfo.cooldownLeft > 0)
+        {
+            towerInfo.cooldownLeft--;
+            ChangePanels();
+            yield return new WaitForSeconds(1);
+        }
+
+        towerInfo.isDisabled = false;
+        ChangePanels();
     }
 }
