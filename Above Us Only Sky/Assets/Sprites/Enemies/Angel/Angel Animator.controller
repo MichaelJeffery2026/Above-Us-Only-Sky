@@ -61,7 +61,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Hitting
+    m_ConditionEvent: Firing
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2826801383811717744}
@@ -86,13 +86,13 @@ AnimatorController:
   m_Name: Angel Animator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Hitting
+  - m_Name: Firing
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Stop Hitting
+  - m_Name: Stop Firing
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -120,7 +120,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Stop Hitting
+    m_ConditionEvent: Stop Firing
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2870984427381806017}

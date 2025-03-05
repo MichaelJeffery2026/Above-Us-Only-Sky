@@ -5,28 +5,39 @@ using UnityEngine.Tilemaps;
 public class Pathfinding : MonoBehaviour
 {
     private Tilemap walkableTilemap; // Assign the tilemap that marks walkable areas
-    public string tag; // Assign the target GameObject dynamically
+    public string tagName; // Assign the target GameObject dynamically
     public float moveSpeed = 5f; // Movement speed
 
     private List<Vector3> path = new List<Vector3>(); // Stores the computed path
     private int pathIndex = 0; // Tracks the current waypoint
 
     private Vector3 lastTargetPosition = new Vector3 (0.0f, 0.0f, 0.0f);
-    public GameObject target;
+    private GameObject target;
+
+    private SpriteRenderer myRenderer;
 
     private void Start()
     {
         walkableTilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
+        myRenderer = this.GetComponent<SpriteRenderer>();
     }
 
 
     void Update()
     {
-        if (tag == null) return;
-
-        if (target == null || path.Count == 0 || pathIndex >= path.Count || lastTargetPosition != target.transform.position) //Path not reevaluted until destination is reached (may change)
+        if (tagName == null) return;
+        if (target != null && (target.transform.position.x < transform.position.x))
         {
-            GameObject[] towers = GameObject.FindGameObjectsWithTag(tag);
+            myRenderer.flipX = true;
+        }
+        else
+        {
+            myRenderer.flipX = false;
+        }
+
+        if (pathIndex == 2 || target == null || path.Count == 0 || pathIndex >= path.Count || lastTargetPosition != target.transform.position) //Path not reevaluted until destination is reached (may change)
+        {
+            GameObject[] towers = GameObject.FindGameObjectsWithTag(tagName);
             int shortestPathLength = 255;
             int shortestPathIndex = 0;
 

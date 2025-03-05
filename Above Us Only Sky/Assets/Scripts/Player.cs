@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         if (hit.collider != null)
         {
             Debug.Log("hit");
-            hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(playerDamage);
+            hit.collider.gameObject.GetComponent<Health>().TakeDamage(playerDamage);
             endPoint = hit.point;
         }
 
