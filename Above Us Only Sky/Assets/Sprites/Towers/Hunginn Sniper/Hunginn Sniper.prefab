@@ -323,7 +323,7 @@ MonoBehaviour:
   targetLayerName: Enemy
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!1 &8152552776880172662
 GameObject:
   m_ObjectHideFlags: 0
