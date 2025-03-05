@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 8
+  damage: 12
   fireRate: 432
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
@@ -322,6 +322,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
   target: Enemy
   targetLayerName: Enemy
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &6749060476069108926
 GameObject:
   m_ObjectHideFlags: 0

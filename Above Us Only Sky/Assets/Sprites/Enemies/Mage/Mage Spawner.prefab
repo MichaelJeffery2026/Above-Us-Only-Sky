@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708751d19b9e405438a4f33ca4fadbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  period: 2.5
+  period: 5
   enemy: {fileID: 6974993311159797125, guid: 58a5d5c8431fb4b0eb2f3967196b8c33, type: 3}

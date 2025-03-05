@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 300
+  hp: 400
 --- !u!114 &4252117349913711526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: 75
   fireRate: 48
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
@@ -321,6 +321,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
   target: Enemy
   targetLayerName: Enemy
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8152552776880172662
 GameObject:
   m_ObjectHideFlags: 0

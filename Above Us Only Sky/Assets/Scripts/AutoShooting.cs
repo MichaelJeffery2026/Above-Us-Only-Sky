@@ -25,6 +25,8 @@ public class AutoShooting : MonoBehaviour
     private float lineDuration = 0.2f;
     private bool canShoot = true; // Cooldown flag
 
+    public LayerMask layerMask;
+
 
     private void Awake()
     {
@@ -55,7 +57,7 @@ public class AutoShooting : MonoBehaviour
             Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
             Vector2 tileSize = tilemap.cellSize;
 
-            Collider2D collider = Physics2D.OverlapBox(worldPos, tileSize, 0f);
+            Collider2D collider = Physics2D.OverlapBox(worldPos, tileSize, 0f, layerMask);
 
             if (collider != null && collider.CompareTag(target))
             {
