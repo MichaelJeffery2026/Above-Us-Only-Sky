@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,8 @@ using UnityEngine.UI;
 public class TowerInfo
 {
     public GameObject towerPrefab;
-    public Tower tower;
+    public string towerName;
+    public int towerCooldown;
     public Sprite sprite;
     public bool isDisabled = false;
     public int cooldownLeft = 0;
@@ -18,12 +20,15 @@ public class TowerInfo
         if (towerPrefab != null)
         {
             GameObject tempInstance = GameObject.Instantiate(towerPrefab);
-            tower = tempInstance.GetComponent<Tower>();
+            Tower tower = tempInstance.GetComponent<Tower>();
 
             if (tower == null)
             {
                 Debug.LogError($"Tower component missing on {towerPrefab.name}");
             }
+
+            towerName = tower.towerName;
+            towerCooldown = tower.cooldown;
 
             GameObject.Destroy(tempInstance);
         }
@@ -54,6 +59,8 @@ public class PanelInfo
                     sprite = i;
                 }
             }
+
+            cooldown = panel.GetComponentInChildren<TextMeshProUGUI>();
         }
     }
 }
@@ -126,12 +133,13 @@ public class TowerManager : MonoBehaviour
             {
                 panels[i].panel.enabled = false;
                 panels[i].disabledCover.enabled = true;
-                //panels[i].cooldown.SetText("" + towers[currentStartIndex + i].cooldownLeft);
+                panels[i].cooldown.enabled = true;
+               panels[i].cooldown.SetText("" + towers[currentStartIndex + i].cooldownLeft);
             } else
             {
                 panels[i].panel.enabled = true;
                 panels[i].disabledCover.enabled = false;
-                //panels[i].cooldown.enabled = false;
+                panels[i].cooldown.enabled = false;
             }
         }
     }
@@ -140,11 +148,10 @@ public class TowerManager : MonoBehaviour
     {
         for (int i = 0; i < towers.Count; i++)
         {
-            if (towers[i].tower.towerName == tower.towerName)
+            if (towers[i].towerName == tower.towerName)
             {
                 towers[i].isDisabled =  true;
-                int cooldown = towers[i].tower.cooldown;
-                towers[i].cooldownLeft = cooldown;
+                towers[i].cooldownLeft = towers[i].towerCooldown;
                 StartCoroutine(CooldownTimer(towers[i]));
             }
         }

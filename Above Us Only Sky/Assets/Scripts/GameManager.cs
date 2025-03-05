@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
         towerManager = FindAnyObjectByType<TowerManager>();
     }
 
-    public bool TryPlaceTower(Vector3Int tilePosition, GameObject towerPrefab, Tower tower)
+    public bool TryPlaceTower(Vector3Int tilePosition, GameObject towerPrefab)
     {
         if (groundTilemap.HasTile(tilePosition) && !placedTowers.ContainsKey(tilePosition))
         {
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
             GameObject newTower = Instantiate(towerPrefab, worldPosition, Quaternion.identity);
 
             placedTowers[tilePosition] = newTower;  
+
+            Tower tower = newTower.GetComponent<Tower>();
 
             towerManager.placedTower(tower);
             return true;  

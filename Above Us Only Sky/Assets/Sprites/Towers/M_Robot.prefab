@@ -205,12 +205,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba413589d29f2a040aadec76eb8d2145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerName: Melee
   towerCost: 0
   towerHP: 300
   towerDamage: 8
   fireRate: 432
+  cooldown: 5
   customOffsets:
   - {x: 1, y: 0, z: 0}
+  IsUnique: 0
   centerTilePosition: {x: -5, y: -2, z: 0}
   bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
 --- !u!95 &3310466603044297659

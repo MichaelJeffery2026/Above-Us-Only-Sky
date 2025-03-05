@@ -58,7 +58,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(eventData.position);
             Vector3Int tilePosition = gameManager.groundTilemap.WorldToCell(mouseWorldPosition);
 
-            bool placedSuccessfully = gameManager.TryPlaceTower(tilePosition, towerPrefab, towerScript);
+            bool placedSuccessfully = gameManager.TryPlaceTower(tilePosition, towerPrefab);
             Destroy(currentTower);
             currentTower = null;
 
