@@ -59,10 +59,10 @@ public class AutoShooting : MonoBehaviour
 
             if (collider != null && collider.CompareTag(target))
             {
+                Debug.Log(this.tag);
 
                 StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
 
-                
                 if (!isShooting) //Activate shooting animation
                 {
                     isShooting = true;
