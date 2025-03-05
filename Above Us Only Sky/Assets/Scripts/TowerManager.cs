@@ -53,7 +53,7 @@ public class TowerManager : MonoBehaviour
     public void MoveRight()
     {
         Debug.Log("Clicked Right");
-        if (currentStartIndex + 4 < towers.Count)
+        if (currentStartIndex + panels.Count < towers.Count)
         {
             currentStartIndex++;
             ChangePanels();
