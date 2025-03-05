@@ -208,6 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerCost: 0
+  towerName: Melee
+  cooldown: 5
   IsUnique: 0
 --- !u!95 &3310466603044297659
 Animator:

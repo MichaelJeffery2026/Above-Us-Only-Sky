@@ -208,6 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerCost: 0
+  towerName: Sniper
+  cooldown: 30
   IsUnique: 0
 --- !u!95 &3019913099900771609
 Animator:

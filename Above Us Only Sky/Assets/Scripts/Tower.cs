@@ -7,6 +7,8 @@ using Unity.VisualScripting;
 public class Tower : MonoBehaviour
 {
     public int towerCost = 0;
+    public string towerName = "";
+    public int cooldown = 5;
     public bool IsUnique = false;
 
     private Tilemap tilemap; // The Tilemap where tiles exist

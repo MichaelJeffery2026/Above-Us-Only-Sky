@@ -208,6 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerCost: 0
+  towerName: Ranged
+  cooldown: 5
   IsUnique: 0
 --- !u!95 &4218650794724706016
 Animator:
