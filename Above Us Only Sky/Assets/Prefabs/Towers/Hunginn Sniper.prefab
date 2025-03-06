@@ -210,7 +210,7 @@ MonoBehaviour:
   towerCost: 0
   towerName: Sniper
   cooldown: 30
-  IsUnique: 0
+  IsUnique: 1
 --- !u!95 &3019913099900771609
 Animator:
   serializedVersion: 5

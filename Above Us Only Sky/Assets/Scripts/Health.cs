@@ -8,6 +8,12 @@ public class Health : MonoBehaviour
     private int currentHealth;
 
     private Renderer objectRenderer;
+    private GameManager gm;
+
+    private void Awake()
+    {
+        gm = FindFirstObjectByType<GameManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +36,7 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            gm.Kill(this.gameObject);
             return;
         }
         StartCoroutine(PaintRed());
