@@ -18,6 +18,9 @@ public class Tower : MonoBehaviour
     private LayerMask objectLayer; // Layer mask for checking placed objects
     private bool placingTower = false; // Toggle for placement state
 
+    private SpriteRenderer myRenderer;
+    private Transform firePoint;
+
     private void Awake()
     {
         tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
@@ -25,12 +28,31 @@ public class Tower : MonoBehaviour
 
     private void Start()
     {
-
+        myRenderer = this.GetComponent<SpriteRenderer>();
+        firePoint = transform.Find("Fire Point").GetComponent<Transform>();
     }
 
     private void Update()
     {
         PlaceTowerCheck();
+        if (this.GetComponent<AutoShooting>().hasTargetLocation())
+        {
+            Vector3 targetLocation = this.GetComponent<AutoShooting>().targetLocation;
+            if (this.transform.position.x > targetLocation.x && myRenderer.flipX == false)
+            {
+                myRenderer.flipX = true;
+                Vector3 pos = firePoint.transform.localPosition;
+                pos.x *= -1;
+                firePoint.transform.localPosition = pos;
+            }
+            else if (this.transform.position.x < targetLocation.x && myRenderer.flipX == true)
+            {
+                myRenderer.flipX = false;
+                Vector3 pos = firePoint.transform.localPosition;
+                pos.x *= -1;
+                firePoint.transform.localPosition = pos;
+            }
+        }
     }
 
     private void PlaceTowerCheck()

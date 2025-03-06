@@ -25,6 +25,8 @@ public class AutoShooting : MonoBehaviour
     private float lineDuration = 0.2f;
     private bool canShoot = true; // Cooldown flag
 
+    public Vector3 targetLocation;
+
     public LayerMask layerMask;
 
 
@@ -61,7 +63,8 @@ public class AutoShooting : MonoBehaviour
 
             if (collider != null && collider.CompareTag(target))
             {
-                Debug.Log(this.tag);
+
+                targetLocation = collider.transform.position;
 
                 StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
 
@@ -181,5 +184,10 @@ public class AutoShooting : MonoBehaviour
             Vector3 tileWorldPos = tilemap.GetCellCenterWorld(tile);
             Gizmos.DrawWireCube(tileWorldPos, tilemap.cellSize);
         }
+    }
+
+    public bool hasTargetLocation()
+    {
+        return targetLocation != null;
     }
 }

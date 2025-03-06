@@ -123,7 +123,7 @@ public class TowerManager : MonoBehaviour
 
     public void ChangePanels()
     {
-        Debug.Log("Change Panels");
+        //Debug.Log("Change Panels");
         for (int i = 0; i < panels.Count; i++)
         {
             panels[i].sprite.sprite = towers[currentStartIndex + i].sprite;

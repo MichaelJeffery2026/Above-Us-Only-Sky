@@ -50,9 +50,12 @@ public class Pathfinding : MonoBehaviour
                     shortestPathIndex = i;
                 }
             }
-            target = towers[shortestPathIndex];
-            lastTargetPosition = target.transform.position;
-            FindPath(transform.position, towers[shortestPathIndex].transform.position);
+            if (towers.Length != 0)
+            {
+                target = towers[shortestPathIndex];
+                lastTargetPosition = target.transform.position;
+                FindPath(transform.position, towers[shortestPathIndex].transform.position);
+            }
         }
 
         MoveAlongPath();

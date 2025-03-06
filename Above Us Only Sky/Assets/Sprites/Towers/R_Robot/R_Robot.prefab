@@ -307,21 +307,35 @@ MonoBehaviour:
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
   - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
   - {x: 1, y: 1, z: 0}
+  - {x: -1, y: 1, z: 0}
   - {x: 1, y: -1, z: 0}
+  - {x: -1, y: -1, z: 0}
   - {x: 1, y: 2, z: 0}
+  - {x: -1, y: 2, z: 0}
   - {x: 1, y: -2, z: 0}
+  - {x: -1, y: -2, z: 0}
   - {x: 2, y: 0, z: 0}
+  - {x: -2, y: 0, z: 0}
   - {x: 2, y: 1, z: 0}
+  - {x: -2, y: 1, z: 0}
   - {x: 2, y: -2, z: 0}
+  - {x: -2, y: -2, z: 0}
   - {x: 2, y: 2, z: 0}
+  - {x: -2, y: 2, z: 0}
   - {x: 2, y: -2, z: 0}
+  - {x: -2, y: -2, z: 0}
   - {x: 3, y: 0, z: 0}
+  - {x: -3, y: 0, z: 0}
   - {x: 3, y: 1, z: 0}
+  - {x: -3, y: 1, z: 0}
   - {x: 3, y: -1, z: 0}
+  - {x: -3, y: -1, z: 0}
   bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
   target: Enemy
   targetLayerName: Enemy
+  targetLocation: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -350,7 +364,7 @@ Transform:
   m_GameObject: {fileID: 6749060476069108926}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.419, y: -0.084, z: 0}
+  m_LocalPosition: {x: 0.133, y: -0.109, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

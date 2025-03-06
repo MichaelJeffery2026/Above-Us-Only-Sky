@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 7336858026172848870}
   - component: {fileID: 8406582052762352788}
   - component: {fileID: 3289008815522910703}
-  - component: {fileID: 2683679940697257664}
   - component: {fileID: 8858202924438651136}
   - component: {fileID: -7958148843046564111}
   m_Layer: 11
@@ -224,20 +223,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &2683679940697257664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6111443920340800786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba413589d29f2a040aadec76eb8d2145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerCost: 0
-  IsUnique: 0
 --- !u!61 &8858202924438651136
 BoxCollider2D:
   m_ObjectHideFlags: 0
