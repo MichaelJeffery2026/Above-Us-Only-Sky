@@ -254,6 +254,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7955356696755575130, guid: 1a762e6ac5b5a4b8f8fe860f93201797, type: 3}
   target: Tower
   targetLayerName: Tower
+  targetLocation: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 2048

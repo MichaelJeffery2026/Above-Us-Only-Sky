@@ -307,20 +307,33 @@ MonoBehaviour:
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
   - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
   - {x: 1, y: 1, z: 0}
+  - {x: -1, y: 1, z: 0}
   - {x: 1, y: -1, z: 0}
+  - {x: -1, y: -1, z: 0}
   - {x: 2, y: 0, z: 0}
+  - {x: -2, y: 0, z: 0}
   - {x: 2, y: 1, z: 0}
+  - {x: -2, y: 1, z: 0}
   - {x: 2, y: -1, z: 0}
+  - {x: -2, y: -1, z: 0}
   - {x: 3, y: 0, z: 0}
+  - {x: -3, y: 0, z: 0}
   - {x: 3, y: 1, z: 0}
+  - {x: -3, y: 1, z: 0}
   - {x: 3, y: -1, z: 0}
+  - {x: -3, y: -1, z: 0}
   - {x: 4, y: 0, z: 0}
+  - {x: -4, y: 0, z: 0}
   - {x: 4, y: 1, z: 0}
+  - {x: -4, y: 1, z: 0}
   - {x: 4, y: -1, z: 0}
+  - {x: -4, y: -1, z: 0}
   bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
   target: Enemy
   targetLayerName: Enemy
+  targetLocation: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
