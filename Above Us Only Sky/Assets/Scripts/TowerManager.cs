@@ -13,6 +13,7 @@ public class TowerInfo
     public int towerCooldown;
     public Sprite sprite;
     public bool isDisabled = false;
+    public bool isUnique = false;
     public int cooldownLeft = 0;
 
     public void Initialize()
@@ -29,6 +30,7 @@ public class TowerInfo
 
             towerName = tower.towerName;
             towerCooldown = tower.cooldown;
+            isUnique = tower.IsUnique;
 
             GameObject.Destroy(tempInstance);
         }
@@ -129,7 +131,12 @@ public class TowerManager : MonoBehaviour
             panels[i].sprite.sprite = towers[currentStartIndex + i].sprite;
             panels[i].panel.towerPrefab = towers[currentStartIndex + i].towerPrefab;
 
-            if (towers[currentStartIndex + i].isDisabled)
+            if (towers[currentStartIndex + i].isDisabled && towers[currentStartIndex + i].cooldownLeft == int.MaxValue)
+            {
+                panels[i].panel.enabled = false;
+                panels[i].disabledCover.enabled = true;
+                panels[i].cooldown.enabled = false;
+            } else if (towers[currentStartIndex + i].isDisabled)
             {
                 panels[i].panel.enabled = false;
                 panels[i].disabledCover.enabled = true;
@@ -151,6 +158,28 @@ public class TowerManager : MonoBehaviour
             if (towers[i].towerName == tower.towerName)
             {
                 towers[i].isDisabled =  true;
+                towers[i].cooldownLeft = towers[i].towerCooldown;
+
+                if (towers[i].isUnique)
+                {
+                    towers[i].isDisabled = true;
+                    towers[i].cooldownLeft = int.MaxValue;
+                    ChangePanels();
+                }
+                else
+                {
+                    StartCoroutine(CooldownTimer(towers[i]));
+                }
+            }
+        }
+    }
+
+    public void TowerDied(Tower tower)
+    {
+        for (int i = 0; i < towers.Count; i++)
+        {
+            if (towers[i].towerName == tower.towerName)
+            {
                 towers[i].cooldownLeft = towers[i].towerCooldown;
                 StartCoroutine(CooldownTimer(towers[i]));
             }

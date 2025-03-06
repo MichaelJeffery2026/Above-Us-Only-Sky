@@ -20,10 +20,12 @@ public class Tower : MonoBehaviour
 
     private SpriteRenderer myRenderer;
     private Transform firePoint;
+    private GameManager gm;
 
     private void Awake()
     {
         tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
+        gm = FindObjectOfType<GameManager>();
     }
 
     private void Start()
@@ -84,5 +86,10 @@ public class Tower : MonoBehaviour
     public void ChangePlacingState()
     {
         placingTower = !placingTower;
+    }
+
+    public void Die()
+    {
+        gm.Kill(this.gameObject);
     }
 }

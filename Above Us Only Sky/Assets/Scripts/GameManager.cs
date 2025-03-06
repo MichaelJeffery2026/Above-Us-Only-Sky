@@ -40,8 +40,19 @@ public class GameManager : MonoBehaviour
     {
         if (placedTowers.ContainsKey(tilePosition))
         {
-            Destroy(placedTowers[tilePosition]);
             placedTowers.Remove(tilePosition);
         }
+    }
+
+    public void Kill(GameObject obj)
+    {
+        if (obj.CompareTag("Tower"))
+        {
+            Tower tower = obj.GetComponent<Tower>();
+            Vector3Int tilePosition = groundTilemap.WorldToCell(obj.transform.position);
+            RemoveTower(tilePosition);
+            towerManager.TowerDied(tower);
+        }
+        Destroy(obj);
     }
 }
