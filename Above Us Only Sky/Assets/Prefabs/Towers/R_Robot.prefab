@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba413589d29f2a040aadec76eb8d2145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerCost: 0
+  towerCost: 1
   towerName: Ranged
-  cooldown: 5
+  cooldown: 2
   IsUnique: 0
 --- !u!95 &4218650794724706016
 Animator:

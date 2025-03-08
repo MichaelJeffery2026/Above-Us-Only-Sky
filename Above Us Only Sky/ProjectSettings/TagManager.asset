@@ -11,6 +11,7 @@ TagManager:
   - DisabledCover
   - Sprite
   - Cooldown
+  - Cost
   layers:
   - Default
   - TransparentFX

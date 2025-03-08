@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -6,11 +7,14 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 {
     public GameObject towerPrefab;  
     public bool isUnique = false;
+    public TextMeshProUGUI costText;
+
     private GameObject currentTower;
     private SpriteRenderer currentSpriteRenderer;
     private Camera mainCamera;       
     private GameManager gameManager;
     private Tower towerScript;
+    private int cost;
 
     private void Start()
     {
@@ -18,30 +22,34 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         gameManager = FindObjectOfType<GameManager>();
         towerScript = towerPrefab.GetComponent<Tower>();
         isUnique = towerScript.IsUnique;
+        cost = towerScript.towerCost;
+        costText.SetText("" + cost);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Create a new tower instance when dragging starts from the UI image
-        Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(eventData.position);
-        Vector3 towerPosition = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0);
+        if (gameManager.currencyCount >= cost) {
+            // Create a new tower instance when dragging starts from the UI image
+            Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(eventData.position);
+            Vector3 towerPosition = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0);
 
-        currentTower = new GameObject("DraggingTower");
-        currentSpriteRenderer = currentTower.AddComponent<SpriteRenderer>();
-        currentSpriteRenderer.sortingLayerName = "Character";
+            currentTower = new GameObject("DraggingTower");
+            currentSpriteRenderer = currentTower.AddComponent<SpriteRenderer>();
+            currentSpriteRenderer.sortingLayerName = "Character";
 
-        GameObject tempInstance = GameObject.Instantiate(towerPrefab);
-        Sprite sprite = tempInstance.GetComponent<SpriteRenderer>().sprite;
+            GameObject tempInstance = GameObject.Instantiate(towerPrefab);
+            Sprite sprite = tempInstance.GetComponent<SpriteRenderer>().sprite;
 
-        GameObject.Destroy(tempInstance);
+            GameObject.Destroy(tempInstance);
 
-        currentSpriteRenderer.sprite = sprite;
+            currentSpriteRenderer.sprite = sprite;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         // Update the position of the tower sprite as the mouse moves (during drag)
-        if (currentTower != null)
+        if (gameManager.currencyCount >= cost && currentTower != null)
         {
             Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(eventData.position);
             Vector3 towerPosition = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0);
@@ -53,7 +61,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (currentTower != null)
+        if (gameManager.currencyCount >= cost && currentTower != null)
         {
             Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(eventData.position);
             Vector3Int tilePosition = gameManager.groundTilemap.WorldToCell(mouseWorldPosition);
@@ -65,7 +73,17 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             if (placedSuccessfully && isUnique)
             {
                 this.gameObject.SetActive(false);
+                gameManager.currencyCount -= cost;
             }
         }
     }
+
+    public void UpdateCost()
+    {
+        towerScript = towerPrefab.GetComponent<Tower>();
+        isUnique = towerScript.IsUnique;
+        cost = towerScript.towerCost;
+        costText.SetText("" + cost);
+    }
+
 }

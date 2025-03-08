@@ -130,6 +130,7 @@ public class TowerManager : MonoBehaviour
         {
             panels[i].sprite.sprite = towers[currentStartIndex + i].sprite;
             panels[i].panel.towerPrefab = towers[currentStartIndex + i].towerPrefab;
+            panels[i].panel.UpdateCost();
 
             if (towers[currentStartIndex + i].isDisabled && towers[currentStartIndex + i].cooldownLeft == int.MaxValue)
             {

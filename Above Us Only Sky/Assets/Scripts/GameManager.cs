@@ -2,14 +2,27 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using UnityEditor.Timeline;
+using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public Tilemap groundTilemap;
-    public float GoldCooldown = 3;
+    public int currencyCount = 0;
+    public float currencyCooldown = 3;
 
+    private float cooldownLeft;
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
     private TowerManager towerManager;
+    private TextMeshProUGUI currencyCountText;
+
+    private void Start()
+    {
+        cooldownLeft = currencyCooldown;
+        StartCoroutine(CooldownTimer());
+        currencyCountText = GameObject.FindGameObjectWithTag("Cost").GetComponent<TextMeshProUGUI>();
+        currencyCountText.SetText("" + currencyCount);
+    }
 
     private void Update()
     {
@@ -54,5 +67,18 @@ public class GameManager : MonoBehaviour
             towerManager.TowerDied(tower);
         }
         Destroy(obj);
+    }
+
+    private IEnumerator CooldownTimer()
+    {
+        while (cooldownLeft > 0)
+        {
+            cooldownLeft--;
+            yield return new WaitForSeconds(1);
+        }
+        cooldownLeft = currencyCooldown;
+        currencyCount += 1;
+        currencyCountText.SetText("" + currencyCount);
+        StartCoroutine(CooldownTimer());
     }
 }
