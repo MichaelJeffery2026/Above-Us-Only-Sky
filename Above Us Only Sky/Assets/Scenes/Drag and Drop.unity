@@ -2782,7 +2782,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4359071447281782897, guid: a16204742be96474088df327323ba689, type: 3}
       propertyPath: period
-      value: 0.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5802141598031863707, guid: a16204742be96474088df327323ba689, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4412,6 +4412,10 @@ PrefabInstance:
     - target: {fileID: 1036547421194523351, guid: 06bcf3ff84ab5e7429e7f70a6e096cc0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5165662857286557521, guid: 06bcf3ff84ab5e7429e7f70a6e096cc0, type: 3}
+      propertyPath: currencyCount
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5165662857286557521, guid: 06bcf3ff84ab5e7429e7f70a6e096cc0, type: 3}
       propertyPath: groundTilemap

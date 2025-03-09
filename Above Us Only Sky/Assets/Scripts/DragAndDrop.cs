@@ -70,9 +70,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             Destroy(currentTower);
             currentTower = null;
 
-            if (placedSuccessfully && isUnique)
+            if (placedSuccessfully)
             {
-                this.gameObject.SetActive(false);
                 gameManager.currencyCount -= cost;
             }
         }
