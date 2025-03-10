@@ -72,7 +72,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
             if (placedSuccessfully)
             {
-                gameManager.currencyCount -= cost;
+                gameManager.AddToCurrency(-cost);
             }
         }
     }

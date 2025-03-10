@@ -81,4 +81,10 @@ public class GameManager : MonoBehaviour
         currencyCountText.SetText("" + currencyCount);
         StartCoroutine(CooldownTimer());
     }
+
+    public void AddToCurrency(int add)
+    {
+        currencyCount += add;
+        currencyCountText.SetText("" + currencyCount);
+    }
 }
