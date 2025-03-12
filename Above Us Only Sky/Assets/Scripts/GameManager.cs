@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
     private TowerManager towerManager;
     private TextMeshProUGUI currencyCountText;
+    private WaveSpawner waveSpawner;
 
     private void Start()
     {
@@ -22,11 +23,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CooldownTimer());
         currencyCountText = GameObject.FindGameObjectWithTag("Cost").GetComponent<TextMeshProUGUI>();
         currencyCountText.SetText("" + currencyCount);
+
+        towerManager = FindAnyObjectByType<TowerManager>();
+        waveSpawner = FindAnyObjectByType<WaveSpawner>();
     }
 
     private void Update()
     {
-        towerManager = FindAnyObjectByType<TowerManager>();
+        if (towerManager == null)
+        {
+            towerManager = FindAnyObjectByType<TowerManager>();
+        }
     }
 
     public bool TryPlaceTower(Vector3Int tilePosition, GameObject towerPrefab)
@@ -59,12 +66,16 @@ public class GameManager : MonoBehaviour
 
     public void Kill(GameObject obj)
     {
-        if (obj.CompareTag("Tower"))
+        if (obj.CompareTag("Tower") && obj.GetComponent<Tower>() != null)
         {
             Tower tower = obj.GetComponent<Tower>();
             Vector3Int tilePosition = groundTilemap.WorldToCell(obj.transform.position);
             RemoveTower(tilePosition);
             towerManager.TowerDied(tower);
+        }
+        else if (obj.CompareTag("Enemy") && obj.GetComponent<Pathfinding>() != null)
+        {
+            waveSpawner.EnemyDeath();
         }
         Destroy(obj);
     }
