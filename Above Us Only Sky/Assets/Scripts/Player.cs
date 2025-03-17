@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
     [Tooltip("The number of hitpoints the player has.")]
     public int playerHP = 0;
-
-    [Tooltip("The speed at which the player moves.")]
-    public float moveSpeed = 0f;
 
     [Tooltip("The radius of the player's shooting range in tiles.")]
     public float range = 0f;
@@ -25,30 +23,31 @@ public class Player : MonoBehaviour
     [Tooltip("The radius of the player's healing range in tiles.")]
     public int towerHealingRange = 0;
 
-
-    //The speed at which the player's bullets travel in tiles per second
     private float bulletSpeed = 20f;
-    //The layer that the player's targets are on. Should be 'Enemies'
     private LayerMask targetLayer;
-    // The time that the shooting debug line appears on the screen
     private float lineDuration = 0.1f;
     private Rigidbody2D _rb;
     public GameObject bulletPrefab;
     private Transform firePoint;
     private LineRenderer lineRenderer;
-    // For use in calculating player movement. MUST be set to Vector2.zero in this line.
-    private Vector2 _moveDir = Vector2.zero; 
-    // For use in fire rate cooldown. MUST be set to true in this line.
     private bool canShoot = true;
     private int currentHealth;
+    private float tileSize = 1f;
+    public Tilemap groundTilemap;
+    private bool isMoving = false;
+    public float moveDuration = 0.2f;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        //bulletPrefab = GameObject.Find("Player Bullet");
         firePoint = transform.Find("Fire Point").GetComponent<Transform>();
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask("Enemy");
+        if (groundTilemap != null)
+        {
+            tileSize = groundTilemap.cellSize.x;
+            AlignToGrid();
+        }
     }
 
     private void Start()
@@ -58,8 +57,22 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _moveDir.x = Input.GetAxisRaw("Horizontal");
-        _moveDir.y = Input.GetAxisRaw("Vertical");
+        if (!isMoving)
+        {
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
+
+            if (moveX != 0 || moveY != 0)
+            {
+                Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
+                Vector3 targetPosition = transform.position + (Vector3)(moveDirection * tileSize);
+                if (IsPositionValid(targetPosition))
+                {
+                    StartCoroutine(Move(moveDirection));
+                }
+            }
+        }
+
         if (canShoot && Input.GetMouseButtonDown(0))
         {
             Shoot();
@@ -67,9 +80,47 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private IEnumerator Move(Vector2 direction)
     {
-        _rb.velocity = _moveDir.normalized * moveSpeed * Time.fixedDeltaTime;
+        isMoving = true;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = groundTilemap.GetCellCenterWorld(groundTilemap.WorldToCell(startPosition + (Vector3)(direction * tileSize)));
+        float elapsedTime = 0f;
+
+        while (elapsedTime < moveDuration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+        isMoving = false;
+    }
+
+    private bool IsPositionValid(Vector3 position)
+    {
+        Vector3Int cellPosition = groundTilemap.WorldToCell(position);
+        if (!groundTilemap.HasTile(cellPosition))
+        {
+            return false;
+        }
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, tileSize * 0.4f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Tower") || collider.CompareTag("Enemy"))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void AlignToGrid()
+    {
+        Vector3Int cellPosition = groundTilemap.WorldToCell(transform.position);
+        transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
     }
 
     private void Shoot()
@@ -93,7 +144,7 @@ public class Player : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet.SetActive(true);
         Renderer bulletRenderer = bullet.GetComponent<Renderer>();
-        bulletRenderer.transform.Rotate(Vector3.forward * Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI); // Rotates the bullet sprite in the direction of shooting
+        bulletRenderer.transform.Rotate(Vector3.forward * Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
 
@@ -117,6 +168,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(lineDuration);
         lineRenderer.enabled = false;
     }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;

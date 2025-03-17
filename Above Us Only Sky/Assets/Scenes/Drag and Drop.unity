@@ -461,7 +461,7 @@ Transform:
   m_GameObject: {fileID: 169014088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.11, y: -1.4, z: 0}
+  m_LocalPosition: {x: -8.128, y: -1.276, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -585,13 +585,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHP: 100
-  moveSpeed: 100
   range: 10
   playerDamage: 20
   fireRate: 120
   towerHealingAmount: 0
   towerHealingRange: 0
   bulletPrefab: {fileID: 6710529529734168576, guid: 4bdb10ccfe72a46898288fd0f5caee3b, type: 3}
+  groundTilemap: {fileID: 1697380818}
+  moveDuration: 0.2
 --- !u!95 &169014096
 Animator:
   serializedVersion: 5
