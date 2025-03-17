@@ -29,6 +29,8 @@ public class AutoShooting : MonoBehaviour
 
     public LayerMask layerMask;
 
+    public float shootStartDelay;
+
 
     private void Awake()
     {
@@ -76,7 +78,8 @@ public class AutoShooting : MonoBehaviour
 
                 if (!canShoot) return; // Prevent shooting if cooldown is active
 
-                Shoot(collider.gameObject);
+                StartCoroutine(ShootBeginDelay(collider.gameObject));
+                //Shoot(collider.gameObject);
                 StartCoroutine(ShootingCooldown()); // Start cooldown timer
                 return;
             }
@@ -110,6 +113,12 @@ public class AutoShooting : MonoBehaviour
         }
 
         return tilesInRange;
+    }
+
+    private IEnumerator ShootBeginDelay(GameObject target)
+    {
+        yield return new WaitForSeconds(shootStartDelay);
+        Shoot(target);
     }
 
     private void Shoot(GameObject target)
