@@ -23,14 +23,11 @@ public class Player : MonoBehaviour
     [Tooltip("The radius of the player's healing range in tiles.")]
     public int towerHealingRange = 0;
 
-    private float bulletSpeed = 20f;
     private LayerMask targetLayer;
     private float lineDuration = 0.1f;
     private Rigidbody2D _rb;
-    public GameObject bulletPrefab;
-    private Transform firePoint;
     private LineRenderer lineRenderer;
-    private bool canShoot = true;
+
     private int currentHealth;
     private float tileSize = 1f;
     public Tilemap groundTilemap;
@@ -40,7 +37,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        firePoint = transform.Find("Fire Point").GetComponent<Transform>();
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask("Enemy");
         if (groundTilemap != null)
@@ -71,12 +67,6 @@ public class Player : MonoBehaviour
                     StartCoroutine(Move(moveDirection));
                 }
             }
-        }
-
-        if (canShoot && Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-            StartCoroutine(ShootingCooldown());
         }
     }
 
@@ -121,42 +111,6 @@ public class Player : MonoBehaviour
     {
         Vector3Int cellPosition = groundTilemap.WorldToCell(transform.position);
         transform.position = groundTilemap.GetCellCenterWorld(cellPosition);
-    }
-
-    private void Shoot()
-    {
-        Vector2 mousePosition2D = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 firePoint2D = firePoint.position;
-        Vector2 direction = (mousePosition2D - firePoint2D).normalized;
-
-        RaycastHit2D hit = Physics2D.Raycast(firePoint2D, direction, range, targetLayer);
-        Vector2 endPoint = mousePosition2D;
-
-        if (hit.collider != null)
-        {
-            Debug.Log("hit");
-            hit.collider.gameObject.GetComponent<Health>().TakeDamage(playerDamage);
-            endPoint = hit.point;
-        }
-
-        StartCoroutine(DrawRay(firePoint2D, endPoint));
-
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        bullet.SetActive(true);
-        Renderer bulletRenderer = bullet.GetComponent<Renderer>();
-        bulletRenderer.transform.Rotate(Vector3.forward * Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.velocity = direction * bulletSpeed;
-
-        float bulletTime = range / bulletSpeed;
-        Destroy(bullet, bulletTime);
-    }
-
-    private IEnumerator ShootingCooldown()
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(60f / fireRate);
-        canShoot = true;
     }
 
     IEnumerator DrawRay(Vector3 start, Vector3 end)
