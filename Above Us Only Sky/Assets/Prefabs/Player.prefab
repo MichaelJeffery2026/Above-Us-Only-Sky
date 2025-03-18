@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6970689541606818717}
+  - component: {fileID: 4681234708476489003}
   m_Layer: 0
-  m_Name: Fire Point
+  m_Name: AutoShooting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,127 @@ Transform:
   m_Children: []
   m_Father: {fileID: 76407782438853377}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4681234708476489003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589147199319766690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 100
+  fireRate: 432
+  centerTilePosition: {x: 0, y: 0, z: 0}
+  customOffsets:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: -1, y: 1, z: 0}
+  - {x: 1, y: -1, z: 0}
+  - {x: -1, y: -1, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: -2, y: 0, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: -2, y: 1, z: 0}
+  - {x: 2, y: -1, z: 0}
+  - {x: -2, y: -1, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: -3, y: 0, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: -3, y: 1, z: 0}
+  - {x: 3, y: -1, z: 0}
+  - {x: -3, y: -1, z: 0}
+  - {x: 4, y: 0, z: 0}
+  - {x: -4, y: 0, z: 0}
+  - {x: 4, y: 1, z: 0}
+  - {x: -4, y: 1, z: 0}
+  - {x: 4, y: -1, z: 0}
+  - {x: -4, y: -1, z: 0}
+  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
+  target: Enemy
+  targetLayerName: Enemy
+  targetLocation: {x: 0, y: 0, z: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+--- !u!1 &8079235254492133501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1649680069655806394}
+  - component: {fileID: 8085393286388727907}
+  m_Layer: 0
+  m_Name: Healing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1649680069655806394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079235254492133501}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.2110186, y: 0.30387628, z: -2.8498967}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 76407782438853377}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8085393286388727907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079235254492133501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: -25
+  fireRate: 432
+  centerTilePosition: {x: 0, y: 0, z: 0}
+  customOffsets:
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: -1, y: 1, z: 0}
+  - {x: 1, y: -1, z: 0}
+  - {x: -1, y: -1, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: -2, y: 0, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: -2, y: 1, z: 0}
+  - {x: 2, y: -1, z: 0}
+  - {x: -2, y: -1, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: -3, y: 0, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: -3, y: 1, z: 0}
+  - {x: 3, y: -1, z: 0}
+  - {x: -3, y: -1, z: 0}
+  - {x: 4, y: 0, z: 0}
+  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
+  target: Enemy
+  targetLayerName: Enemy
+  targetLocation: {x: 0, y: 0, z: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &8680517764576073958
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +168,6 @@ GameObject:
   - component: {fileID: 6009861830775736257}
   - component: {fileID: 8922462217065394303}
   - component: {fileID: 1406146592967233630}
-  - component: {fileID: 1178801253721851665}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -68,6 +189,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6970689541606818717}
+  - {fileID: 1649680069655806394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7585392822515605043
@@ -339,50 +461,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1178801253721851665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8680517764576073958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 100
-  fireRate: 432
-  centerTilePosition: {x: 0, y: 0, z: 0}
-  customOffsets:
-  - {x: 1, y: 0, z: 0}
-  - {x: -1, y: 0, z: 0}
-  - {x: 1, y: 1, z: 0}
-  - {x: -1, y: 1, z: 0}
-  - {x: 1, y: -1, z: 0}
-  - {x: -1, y: -1, z: 0}
-  - {x: 2, y: 0, z: 0}
-  - {x: -2, y: 0, z: 0}
-  - {x: 2, y: 1, z: 0}
-  - {x: -2, y: 1, z: 0}
-  - {x: 2, y: -1, z: 0}
-  - {x: -2, y: -1, z: 0}
-  - {x: 3, y: 0, z: 0}
-  - {x: -3, y: 0, z: 0}
-  - {x: 3, y: 1, z: 0}
-  - {x: -3, y: 1, z: 0}
-  - {x: 3, y: -1, z: 0}
-  - {x: -3, y: -1, z: 0}
-  - {x: 4, y: 0, z: 0}
-  - {x: -4, y: 0, z: 0}
-  - {x: 4, y: 1, z: 0}
-  - {x: -4, y: 1, z: 0}
-  - {x: 4, y: -1, z: 0}
-  - {x: -4, y: -1, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
-  target: Enemy
-  targetLayerName: Enemy
-  targetLocation: {x: 0, y: 0, z: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1024

@@ -34,8 +34,14 @@ public class Player : MonoBehaviour
     private bool isMoving = false;
     public float moveDuration = 0.2f;
 
+    private bool canToggle = true;
+    private float toggleCooldown = 0.2f;
+    private bool isAutoShooting = true;
+    private AutoShooting autoShooting;
+
     private void Awake()
     {
+        autoShooting = GetComponent<AutoShooting>();
         _rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask("Enemy");
@@ -53,10 +59,20 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (canToggle && Input.GetButtonDown("Fire2")) // Toggle Mode button
+        {
+            StartCoroutine(ToggleMode());
+        }
+
+
         if (!isMoving)
         {
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");
+            if (moveX != 0 && moveY != 0)
+            {
+                moveY = 0;
+            }
 
             if (moveX != 0 || moveY != 0)
             {
@@ -132,5 +148,16 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+
+    private IEnumerator ToggleMode()
+    {
+        canToggle = false;
+        isAutoShooting = !isAutoShooting;
+        autoShooting.enabled = isAutoShooting;
+        Debug.Log("Auto Shooting: " + (isAutoShooting ? "Enabled" : "Disabled"));
+        yield return new WaitForSeconds(toggleCooldown);
+        canToggle = true;
     }
 }
