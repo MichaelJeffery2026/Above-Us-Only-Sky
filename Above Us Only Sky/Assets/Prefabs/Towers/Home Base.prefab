@@ -280,4 +280,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  hp: 2000
+  currencyReward: 0

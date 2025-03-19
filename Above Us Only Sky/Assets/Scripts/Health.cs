@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public int hp;
+    public int currencyReward;
     private int currentHealth;
 
     private Renderer objectRenderer;
@@ -36,6 +37,7 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            gm.AddToCurrency(currencyReward);
             gm.Kill(this.gameObject);
             return;
         }
