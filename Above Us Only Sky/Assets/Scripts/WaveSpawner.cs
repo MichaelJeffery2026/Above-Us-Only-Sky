@@ -32,7 +32,7 @@ public class WaveSpawner : MonoBehaviour
     public List<Wave> waves;
     private int currentWaveIndex = 0;
     public float timeBetweenWaves = 5f;
-    private float introTime = 22.85f;
+    private float introTime = 0; //22.8f
 
     public delegate void WaveStarted(int waveNumber);
     public event WaveStarted OnWaveStarted;

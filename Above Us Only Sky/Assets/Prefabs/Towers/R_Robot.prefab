@@ -334,7 +334,7 @@ MonoBehaviour:
   - {x: -3, y: 1, z: 0}
   - {x: 3, y: -1, z: 0}
   - {x: -3, y: -1, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: be3cf9e9f63ca44b7915427fa50366e9, type: 3}
+  bulletPrefab: {fileID: 7955356696755575130, guid: 22125f47aed2e4ab3b8f54c1d2d1ad1b, type: 3}
   target: Enemy
   targetLayerName: Enemy
   targetLocation: {x: 0, y: 0, z: 0}
