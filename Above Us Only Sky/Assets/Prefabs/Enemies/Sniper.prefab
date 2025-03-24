@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 1545511279610895517}
   - component: {fileID: -4559172330397202232}
   m_Layer: 10
-  m_Name: Brute
+  m_Name: Sniper
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: -1245496579
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 660dc1ec78e05445f9c4e4181960bb0a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85808e6dc00484e269f8cae2e07573b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -205,7 +205,7 @@ Animator:
   m_GameObject: {fileID: 6974993311159797125}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 28b7b2619e4b94effa4bf57e607fe67f, type: 2}
+  m_Controller: {fileID: 9100000, guid: a3e8457fd2a4447be9918c05b04fc60c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagName: Tower
-  moveSpeed: 0.5
+  moveSpeed: 0.3
 --- !u!114 &-1920522712488777832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,22 +242,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 120
-  fireRate: 65.455
+  damage: 80
+  fireRate: 40
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
-  - {x: -0.3, y: 0, z: 0}
-  - {x: 0.3, y: 0, z: 0}
-  - {x: 0, y: -0.3, z: 0}
-  - {x: 0, y: 0.3, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: 1a762e6ac5b5a4b8f8fe860f93201797, type: 3}
+  - {x: 0, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: -1, y: -1, z: 0}
+  - {x: 1, y: -1, z: 0}
+  - {x: -2, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: -2, y: 1, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: -2, y: -1, z: 0}
+  - {x: 2, y: -1, z: 0}
+  - {x: -3, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: -3, y: 1, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: -3, y: -1, z: 0}
+  - {x: 3, y: -1, z: 0}
+  bulletPrefab: {fileID: 7955356696755575130, guid: 56738c70eded7451ebe40ca6b0ab28d1, type: 3}
   target: Tower
   targetLayerName: Tower
   targetLocation: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
-  shootStartDelay: 0.5
+  shootStartDelay: 0
 --- !u!120 &1545511279610895517
 LineRenderer:
   serializedVersion: 2
@@ -374,5 +389,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2000
-  currencyReward: 6
+  hp: 200
+  currencyReward: 10

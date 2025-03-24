@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba413589d29f2a040aadec76eb8d2145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerCost: 10
+  towerCost: 15
   towerName: Sniper
-  cooldown: 30
+  cooldown: 10
   IsUnique: 1
 --- !u!95 &3019913099900771609
 Animator:
@@ -289,7 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 400
+  hp: 600
+  currencyReward: 0
 --- !u!114 &4252117349913711526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 75
+  damage: 250
   fireRate: 48
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
@@ -337,6 +338,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
+  shootStartDelay: 0.5
 --- !u!1 &8152552776880172662
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,14 +47,18 @@ MonoBehaviour:
   gruntPrefab: {fileID: 6974993311159797125, guid: 2626292aa23084289901182ae193b5a9, type: 3}
   magePrefab: {fileID: 6974993311159797125, guid: 58a5d5c8431fb4b0eb2f3967196b8c33, type: 3}
   brutePrefab: {fileID: 6974993311159797125, guid: 4a00b92e6e569492d8ea9e8f04994d6d, type: 3}
-  sniperPrefab: {fileID: 6974993311159797125, guid: 4a00b92e6e569492d8ea9e8f04994d6d, type: 3}
+  sniperPrefab: {fileID: 6974993311159797125, guid: 6e17d85e092ca412da6d44b9ccfb1bc2, type: 3}
   waves:
   - waveName: 
     spawnGroups: []
+    timeTillNextWave: 20
+    SkipWaveOnEnemyDeath: 0
   - waveName: 
     spawnGroups:
     - enemyType: 0
       count: 0
       spawnPoint: {fileID: 0}
       spawnInterval: 0
+    timeTillNextWave: 20
+    SkipWaveOnEnemyDeath: 0
   timeBetweenWaves: 5

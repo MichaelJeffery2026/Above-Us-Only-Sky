@@ -9,7 +9,7 @@ public class AutoShooting : MonoBehaviour
     public int damage = 0;
     public float fireRate = 0.0f;
     public Vector3Int centerTilePosition;
-    public Vector3Int[] customOffsets; // Custom shape offsets
+    public Vector3[] customOffsets; // Custom shape offsets
 
     private bool isShooting = false;
     private Animator mAnimator;
@@ -28,6 +28,8 @@ public class AutoShooting : MonoBehaviour
     public Vector3 targetLocation;
 
     public LayerMask layerMask;
+
+    public float shootStartDelay;
 
 
     private void Awake()
@@ -52,14 +54,14 @@ public class AutoShooting : MonoBehaviour
 
     private void CheckAndShoot()
     {
-        List<Vector3Int> tilesInRange = GetTilesInRange();
+        List<Vector3> tilesInRange = GetTilesInRange();
 
-        foreach (Vector3Int tilePos in tilesInRange)
+        foreach (Vector3 tilePos in tilesInRange)
         {
-            Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
+            //Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
             Vector2 tileSize = tilemap.cellSize;
 
-            Collider2D collider = Physics2D.OverlapBox(worldPos, tileSize, 0f, layerMask);
+            Collider2D collider = Physics2D.OverlapBox(tilePos, tileSize, 0f, layerMask);
 
             if (collider != null && collider.CompareTag(target))
             {
@@ -76,7 +78,8 @@ public class AutoShooting : MonoBehaviour
 
                 if (!canShoot) return; // Prevent shooting if cooldown is active
 
-                Shoot(collider.gameObject);
+                StartCoroutine(ShootBeginDelay(collider.gameObject));
+                //Shoot(collider.gameObject);
                 StartCoroutine(ShootingCooldown()); // Start cooldown timer
                 return;
             }
@@ -96,20 +99,23 @@ public class AutoShooting : MonoBehaviour
     }
 
 
-    public List<Vector3Int> GetTilesInRange()
+    public List<Vector3> GetTilesInRange()
     {
-        List<Vector3Int> tilesInRange = new List<Vector3Int>();
+        List<Vector3> tilesInRange = new List<Vector3>();
 
-        foreach (Vector3Int offset in customOffsets)
+        foreach (Vector3 offset in customOffsets)
         {
-            Vector3Int tilePos = centerTilePosition + offset;
-            if (tilemap.HasTile(tilePos)) // Only add valid tiles
-            {
-                tilesInRange.Add(tilePos);
-            }
+            Vector3 tilePos = transform.position + offset;
+            tilesInRange.Add(tilePos);
         }
 
         return tilesInRange;
+    }
+
+    private IEnumerator ShootBeginDelay(GameObject target)
+    {
+        yield return new WaitForSeconds(shootStartDelay);
+        Shoot(target);
     }
 
     private void Shoot(GameObject target)
@@ -177,12 +183,12 @@ public class AutoShooting : MonoBehaviour
         if (tilemap == null) return;
 
         Gizmos.color = gizmoColor;
-        List<Vector3Int> tiles = GetTilesInRange();
+        List<Vector3> tiles = GetTilesInRange();
 
-        foreach (Vector3Int tile in tiles)
+        foreach (Vector3 tile in tiles)
         {
-            Vector3 tileWorldPos = tilemap.GetCellCenterWorld(tile);
-            Gizmos.DrawWireCube(tileWorldPos, tilemap.cellSize);
+            //Vector3 tileWorldPos = tilemap.GetCellCenterWorld(tile);
+            Gizmos.DrawWireCube(tile, tilemap.cellSize);
         }
     }
 
