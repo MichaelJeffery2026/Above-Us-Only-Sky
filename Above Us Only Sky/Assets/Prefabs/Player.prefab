@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2016663398432236491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5909984651728282687}
+  m_Layer: 0
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5909984651728282687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016663398432236491}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6970689541606818717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2589147199319766690
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +60,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5909984651728282687}
   m_Father: {fileID: 76407782438853377}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4681234708476489003
@@ -72,6 +104,7 @@ MonoBehaviour:
   - {x: -4, y: 1, z: 0}
   - {x: 4, y: -1, z: 0}
   - {x: -4, y: -1, z: 0}
+  firePoint: {fileID: 5909984651728282687}
   bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
   target: Enemy
   targetLayerName: Enemy
@@ -79,6 +112,37 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!1 &3086033931435126947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6026389308440470844}
+  m_Layer: 0
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6026389308440470844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3086033931435126947}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.2110186, y: -0.30387628, z: 0.84989667}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1649680069655806394}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8079235254492133501
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1649680069655806394
 Transform:
   m_ObjectHideFlags: 0
@@ -108,7 +172,8 @@ Transform:
   m_LocalPosition: {x: 1.2110186, y: 0.30387628, z: -2.8498967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6026389308440470844}
   m_Father: {fileID: 76407782438853377}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8085393286388727907
@@ -124,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: -25
-  fireRate: 432
+  fireRate: 50
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
   - {x: 1, y: 0, z: 0}
@@ -146,13 +211,14 @@ MonoBehaviour:
   - {x: 3, y: -1, z: 0}
   - {x: -3, y: -1, z: 0}
   - {x: 4, y: 0, z: 0}
+  firePoint: {fileID: 6026389308440470844}
   bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
-  target: Enemy
-  targetLayerName: Enemy
+  target: Tower
+  targetLayerName: Tower
   targetLocation: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 2048
 --- !u!1 &8680517764576073958
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,6 +506,8 @@ MonoBehaviour:
   towerHealingRange: 0
   groundTilemap: {fileID: 0}
   moveDuration: 0.2
+  autoShooting: {fileID: 4681234708476489003}
+  autoHealing: {fileID: 8085393286388727907}
 --- !u!95 &1406146592967233630
 Animator:
   serializedVersion: 5

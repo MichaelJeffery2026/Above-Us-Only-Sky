@@ -39,13 +39,28 @@ public class Health : MonoBehaviour
             gm.Kill(this.gameObject);
             return;
         }
-        StartCoroutine(PaintRed());
+
+        if (damage < 0)
+        {
+            StartCoroutine(PaintGreen());
+        }
+        else
+        {
+            StartCoroutine(PaintRed());
+        }
     }
 
 
     private IEnumerator PaintRed()
     {
         objectRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f); // Wait for 0.1 seconds
+        objectRenderer.material.color = Color.white;
+    }
+
+    private IEnumerator PaintGreen()
+    {
+        objectRenderer.material.color = Color.green;
         yield return new WaitForSeconds(0.1f); // Wait for 0.1 seconds
         objectRenderer.material.color = Color.white;
     }

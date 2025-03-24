@@ -14,7 +14,7 @@ public class AutoShooting : MonoBehaviour
     private bool isShooting = false;
     private Animator mAnimator;
     private Color gizmoColor = Color.red;
-    private Transform firePoint;
+    public Transform firePoint;
     [Tooltip("Assign bullet object.")]
     public GameObject bulletPrefab;
     public string target;
@@ -33,7 +33,10 @@ public class AutoShooting : MonoBehaviour
     private void Awake()
     {
         tilemap = GameObject.Find("Ground").GetComponent<Tilemap>();
-        firePoint = transform.Find("Fire Point").GetComponent<Transform>();
+        if (firePoint == null)
+        {
+            firePoint = this.GetComponentInChildren<Transform>();
+        }
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask(targetLayerName);
     }
@@ -66,12 +69,14 @@ public class AutoShooting : MonoBehaviour
 
                 targetLocation = collider.transform.position;
 
-                StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
+                if (lineRenderer)
+                    StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
 
                 if (!isShooting) //Activate shooting animation
                 {
                     isShooting = true;
-                    mAnimator.SetTrigger("Firing");
+                    if (mAnimator)
+                        mAnimator.SetTrigger("Firing");
                 }
 
                 if (!canShoot) return; // Prevent shooting if cooldown is active
@@ -84,7 +89,8 @@ public class AutoShooting : MonoBehaviour
         if (isShooting) //Deactive shooting animation if no target found
         {
             isShooting = false;
-            mAnimator.SetTrigger("Stop Firing");
+            if (mAnimator)
+                mAnimator.SetTrigger("Stop Firing");
         }
     }
 
@@ -128,7 +134,8 @@ public class AutoShooting : MonoBehaviour
             endPoint = hit.point; // Update endpoint to hit location
         }
 
-        StartCoroutine(DrawRay(firePoint2D, endPoint));
+        if(lineRenderer)
+            StartCoroutine(DrawRay(firePoint2D, endPoint));
 
         // Instantiate Bullet
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);

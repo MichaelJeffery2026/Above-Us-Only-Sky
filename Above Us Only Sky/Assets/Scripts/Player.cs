@@ -37,11 +37,12 @@ public class Player : MonoBehaviour
     private bool canToggle = true;
     private float toggleCooldown = 0.2f;
     private bool isAutoShooting = true;
-    private AutoShooting autoShooting;
+    public AutoShooting autoShooting;
+    public AutoShooting autoHealing;
 
     private void Awake()
     {
-        autoShooting = GetComponent<AutoShooting>();
+        //autoShooting = GetComponentInChildren<AutoShooting>();
         _rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask("Enemy");
@@ -155,7 +156,8 @@ public class Player : MonoBehaviour
     {
         canToggle = false;
         isAutoShooting = !isAutoShooting;
-        autoShooting.enabled = isAutoShooting;
+        autoShooting.gameObject.SetActive(isAutoShooting);
+        autoHealing.gameObject.SetActive(!isAutoShooting);
         Debug.Log("Auto Shooting: " + (isAutoShooting ? "Enabled" : "Disabled"));
         yield return new WaitForSeconds(toggleCooldown);
         canToggle = true;
