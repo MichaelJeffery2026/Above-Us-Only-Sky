@@ -8,8 +8,10 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public Tilemap groundTilemap;
-    public int currencyCount;
+    public int currencyCount = 0;
+    public float currencyCooldown = 3;
 
+    private float cooldownLeft;
     private Dictionary<Vector3Int, GameObject> placedTowers = new Dictionary<Vector3Int, GameObject>();
     private TowerManager towerManager;
     private TextMeshProUGUI currencyCountText;
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        cooldownLeft = currencyCooldown;
+        StartCoroutine(CooldownTimer());
         currencyCountText = GameObject.FindGameObjectWithTag("Cost").GetComponent<TextMeshProUGUI>();
         currencyCountText.SetText("" + currencyCount);
 
@@ -74,6 +78,19 @@ public class GameManager : MonoBehaviour
             waveSpawner.EnemyDeath();
         }
         Destroy(obj);
+    }
+
+    private IEnumerator CooldownTimer()
+    {
+        while (cooldownLeft > 0)
+        {
+            cooldownLeft--;
+            yield return new WaitForSeconds(1);
+        }
+        cooldownLeft = currencyCooldown;
+        currencyCount += 1;
+        currencyCountText.SetText("" + currencyCount);
+        StartCoroutine(CooldownTimer());
     }
 
     public void AddToCurrency(int add)

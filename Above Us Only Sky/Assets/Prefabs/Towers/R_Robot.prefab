@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba413589d29f2a040aadec76eb8d2145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerCost: 5
+  towerCost: 1
   towerName: Ranged
-  cooldown: 5
+  cooldown: 2
   IsUnique: 0
 --- !u!95 &4218650794724706016
 Animator:
@@ -289,8 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
-  currencyReward: 0
+  hp: 800
 --- !u!114 &6299018143266527206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
+  damage: 12
   fireRate: 432
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
@@ -333,14 +332,13 @@ MonoBehaviour:
   - {x: -3, y: 1, z: 0}
   - {x: 3, y: -1, z: 0}
   - {x: -3, y: -1, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: be3cf9e9f63ca44b7915427fa50366e9, type: 3}
+  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
   target: Enemy
   targetLayerName: Enemy
   targetLocation: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
-  shootStartDelay: 0.08333
 --- !u!1 &6749060476069108926
 GameObject:
   m_ObjectHideFlags: 0
