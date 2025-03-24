@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8351786355675343132}
   - component: {fileID: -6082201501454565063}
   - component: {fileID: 6299018143266527206}
+  - component: {fileID: 1218054362619953901}
   m_Layer: 11
   m_Name: R_Robot
   m_TagString: Tower
@@ -207,9 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba413589d29f2a040aadec76eb8d2145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerCost: 1
+  towerCost: 5
   towerName: Ranged
-  cooldown: 2
+  cooldown: 5
   IsUnique: 0
 --- !u!95 &4218650794724706016
 Animator:
@@ -289,7 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 800
+  hp: 500
+  currencyReward: 0
 --- !u!114 &6299018143266527206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 12
+  damage: 25
   fireRate: 432
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
@@ -332,13 +334,38 @@ MonoBehaviour:
   - {x: -3, y: 1, z: 0}
   - {x: 3, y: -1, z: 0}
   - {x: -3, y: -1, z: 0}
-  bulletPrefab: {fileID: 7955356696755575130, guid: fdee4b53fc242456283aadc1873ed9e5, type: 3}
+  bulletPrefab: {fileID: 7955356696755575130, guid: 22125f47aed2e4ab3b8f54c1d2d1ad1b, type: 3}
   target: Enemy
   targetLayerName: Enemy
   targetLocation: {x: 0, y: 0, z: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
+  shootStartDelay: 0.08333
+  hasAudio: 1
+--- !u!114 &1218054362619953901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3699679955243702259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b083b65f4216434b936e1ebefc87474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 4439f956b1f55467ca0c9af3b685eb0d, type: 3}
+  - {fileID: 8300000, guid: 94c5e40e2c89c42f1b18871e5b615973, type: 3}
+  - {fileID: 8300000, guid: 3b07581885cfe40f399dfda4420e689d, type: 3}
+  - {fileID: 8300000, guid: ad47f6b1df33545f6bf927990f5188ee, type: 3}
+  - {fileID: 8300000, guid: 3bc98a12da0c94ec9ad527715d521188, type: 3}
+  - {fileID: 8300000, guid: e4be00387fee24381938c13f6976dd9f, type: 3}
+  - {fileID: 8300000, guid: fdece4a28fe794311aed076a47b0bec3, type: 3}
+  - {fileID: 8300000, guid: f0f17479d2ee44c52b11bf0dfe62f305, type: 3}
+  - {fileID: 8300000, guid: a091e6253c8b340d48b325480203d26c, type: 3}
+  - {fileID: 8300000, guid: 838688254f77849859655b7642f4fbc6, type: 3}
 --- !u!1 &6749060476069108926
 GameObject:
   m_ObjectHideFlags: 0
