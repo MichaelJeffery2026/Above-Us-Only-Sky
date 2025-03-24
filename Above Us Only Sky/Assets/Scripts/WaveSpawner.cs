@@ -32,6 +32,7 @@ public class WaveSpawner : MonoBehaviour
     public List<Wave> waves;
     private int currentWaveIndex = 0;
     public float timeBetweenWaves = 5f;
+    private float introTime = 0; //22.8f
 
     public delegate void WaveStarted(int waveNumber);
     public event WaveStarted OnWaveStarted;
@@ -50,6 +51,10 @@ public class WaveSpawner : MonoBehaviour
     {
         while (currentWaveIndex < waves.Count)
         {
+            if (currentWaveIndex == 0)
+            {
+                yield return new WaitForSeconds(introTime - timeBetweenWaves);
+            }
             yield return new WaitForSeconds(timeBetweenWaves);
             StartCoroutine(SpawnWave(waves[currentWaveIndex]));
             float timeRemaining = waves[currentWaveIndex].timeTillNextWave;

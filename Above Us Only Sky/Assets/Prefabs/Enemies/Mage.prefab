@@ -272,6 +272,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
+  shootStartDelay: 0.33333
+  hasAudio: 0
 --- !u!120 &1545511279610895517
 LineRenderer:
   serializedVersion: 2
@@ -389,3 +391,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 200
+  currencyReward: 3

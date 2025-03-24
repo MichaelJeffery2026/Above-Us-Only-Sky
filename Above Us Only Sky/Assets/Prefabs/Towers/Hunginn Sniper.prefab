@@ -290,6 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 400
+  currencyReward: 0
 --- !u!114 &4252117349913711526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +338,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
+  shootStartDelay: 0.5833333
+  hasAudio: 0
 --- !u!1 &8152552776880172662
 GameObject:
   m_ObjectHideFlags: 0
