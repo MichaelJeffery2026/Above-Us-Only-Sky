@@ -14,7 +14,7 @@ AnimatorStateMachine:
     m_Position: {x: 121, y: 264, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2826801383811717744}
-    m_Position: {x: 460, y: 350, z: 0}
+    m_Position: {x: 462.66666, y: 348, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -91,13 +91,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Stop Firing
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -143,7 +143,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Angel Combat
+  m_Name: AngelAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

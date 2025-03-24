@@ -242,14 +242,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce339f5319e4c41349d89caf59cf94da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 120
-  fireRate: 65.455
+  damage: 80
+  fireRate: 65.45
   centerTilePosition: {x: 0, y: 0, z: 0}
   customOffsets:
-  - {x: -0.3, y: 0, z: 0}
-  - {x: 0.3, y: 0, z: 0}
-  - {x: 0, y: -0.3, z: 0}
-  - {x: 0, y: 0.3, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
+  - {x: 0, y: 1, z: 0}
   bulletPrefab: {fileID: 7955356696755575130, guid: 1a762e6ac5b5a4b8f8fe860f93201797, type: 3}
   target: Tower
   targetLayerName: Tower
@@ -257,7 +258,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2048
-  shootStartDelay: 0.5
 --- !u!120 &1545511279610895517
 LineRenderer:
   serializedVersion: 2
@@ -374,5 +374,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c39c460d3ee4d2cb2135c4de755873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2000
-  currencyReward: 6
+  hp: 800
