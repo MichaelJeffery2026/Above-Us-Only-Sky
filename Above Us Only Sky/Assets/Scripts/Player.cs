@@ -40,12 +40,17 @@ public class Player : MonoBehaviour
     public AutoShooting autoShooting;
     public AutoShooting autoHealing;
 
+    private GameManager gm;
+
     private void Awake()
     {
         //autoShooting = GetComponentInChildren<AutoShooting>();
         _rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         targetLayer = LayerMask.GetMask("Enemy");
+        gm = FindFirstObjectByType<GameManager>();
+        groundTilemap = gm.groundTilemap;
+
         if (groundTilemap != null)
         {
             tileSize = groundTilemap.cellSize.x;
@@ -156,8 +161,10 @@ public class Player : MonoBehaviour
     {
         canToggle = false;
         isAutoShooting = !isAutoShooting;
-        autoShooting.gameObject.SetActive(isAutoShooting);
-        autoHealing.gameObject.SetActive(!isAutoShooting);
+        //autoShooting.gameObject.SetActive(isAutoShooting);
+        //autoHealing.gameObject.SetActive(!isAutoShooting);
+        autoShooting.enabled = isAutoShooting;
+        autoHealing.enabled = !isAutoShooting;
         Debug.Log("Auto Shooting: " + (isAutoShooting ? "Enabled" : "Disabled"));
         yield return new WaitForSeconds(toggleCooldown);
         canToggle = true;

@@ -71,29 +71,45 @@ public class AutoShooting : MonoBehaviour
             //Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
             Vector2 tileSize = tilemap.cellSize;
 
-            Collider2D collider = Physics2D.OverlapBox(tilePos, tileSize, 0f, layerMask);
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(tilePos, tileSize, 0f, layerMask);
 
-            if (collider != null && collider.CompareTag(target))
+            foreach(Collider2D collider in colliders)
             {
-
-                targetLocation = collider.transform.position;
-
-                if (lineRenderer)
-                    StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
-
-                if (!isShooting) //Activate shooting animation
+                if(damage < 0)
                 {
-                    isShooting = true;
-                    if (mAnimator)
-                        mAnimator.SetTrigger("Firing");
+                    if (collider.gameObject.GetComponent<Base>())
+                    {
+                        continue;
+                    }
+                    Health hp = collider.GetComponent<Health>();
+                    if (hp.IsFull())
+                    {
+                        continue;
+                    }
                 }
 
-                if (!canShoot) return; // Prevent shooting if cooldown is active
+                if (collider != null && collider.CompareTag(target))
+                {
 
-                StartCoroutine(ShootBeginDelay(collider.gameObject));
-                //Shoot(collider.gameObject);
-                StartCoroutine(ShootingCooldown()); // Start cooldown timer
-                return;
+                    targetLocation = collider.transform.position;
+
+                    if (lineRenderer)
+                        StartCoroutine(DrawRay((Vector2)firePoint.position, (Vector2)collider.transform.position));
+
+                    if (!isShooting) //Activate shooting animation
+                    {
+                        isShooting = true;
+                        if (mAnimator)
+                            mAnimator.SetTrigger("Firing");
+                    }
+
+                    if (!canShoot) return; // Prevent shooting if cooldown is active
+
+                    StartCoroutine(ShootBeginDelay(collider.gameObject));
+                    //Shoot(collider.gameObject);
+                    StartCoroutine(ShootingCooldown()); // Start cooldown timer
+                    return;
+                }
             }
         }
         if (isShooting) //Deactive shooting animation if no target found

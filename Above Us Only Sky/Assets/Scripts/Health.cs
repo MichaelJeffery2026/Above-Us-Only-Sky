@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -8,32 +7,46 @@ public class Health : MonoBehaviour
     public int currencyReward;
     private int currentHealth;
 
-    private Renderer objectRenderer;
+    private SpriteRenderer objectRenderer;
     private GameManager gm;
+
+    public GameObject healthBarInstance;
+    private SpriteRenderer healthBarFillRenderer;
+    private float originalWidth;
+
+    private float hpTimeLeft = 0f;
 
     private void Awake()
     {
         gm = FindFirstObjectByType<GameManager>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        objectRenderer = GetComponent<Renderer>();
+        objectRenderer = GetComponent<SpriteRenderer>();
         currentHealth = hp;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (healthBarInstance) {
+            healthBarFillRenderer = healthBarInstance.GetComponent<SpriteRenderer>();
+            healthBarFillRenderer.color = new Color(1f, 0f, 0f, 0f);
+            originalWidth = healthBarFillRenderer.size.x;
+        }
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
-        //DisplayDamage(damage);
+        if (healthBarInstance)
+        {
+            float ratio = (float)currentHealth / hp;  // Assuming the X axis represents the health bar width
+            healthBarFillRenderer.size = new Vector2(originalWidth * ratio, healthBarFillRenderer.size.y);
+
+            // Make the health bar visible and start fading it
+            healthBarFillRenderer.color = new Color(1f, 0f, 0f, 1f);  // Show health bar
+            StopCoroutine(FadeHealthBar());
+            StartCoroutine(FadeHealthBar());
+        }
 
         if (currentHealth <= 0)
         {
@@ -52,24 +65,42 @@ public class Health : MonoBehaviour
         }
     }
 
+    private IEnumerator FadeHealthBar()
+    {
+        yield return new WaitForSeconds(2f); // Keep it visible for 2 seconds
+
+        float fadeDuration = 1f;
+        float elapsedTime = 0f;
+        Color currentColor = healthBarFillRenderer.color;
+
+        //while (elapsedTime < fadeDuration)
+        //{
+        //    currentColor.a = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+        //    healthBarFillRenderer.color = currentColor;
+        //    elapsedTime += Time.deltaTime;
+        //    yield return null;
+        //}
+
+        currentColor.a = 0f;
+        healthBarFillRenderer.color = currentColor;
+    }
 
     private IEnumerator PaintRed()
     {
-        objectRenderer.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f); // Wait for 0.1 seconds
-        objectRenderer.material.color = Color.white;
+        objectRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        objectRenderer.color = Color.white;
     }
 
     private IEnumerator PaintGreen()
     {
-        objectRenderer.material.color = Color.green;
-        yield return new WaitForSeconds(0.1f); // Wait for 0.1 seconds
-        objectRenderer.material.color = Color.white;
+        objectRenderer.color = Color.green;
+        yield return new WaitForSeconds(0.1f);
+        objectRenderer.color = Color.white;
     }
 
-    private void DisplayDamage(int damage)
+    public bool IsFull()
     {
-        //GameObject digit = Instantiate(numberImages[damage % 10], transform.position, Quaternion.identity);   
-        //digit.
+        return currentHealth >= hp;
     }
 }

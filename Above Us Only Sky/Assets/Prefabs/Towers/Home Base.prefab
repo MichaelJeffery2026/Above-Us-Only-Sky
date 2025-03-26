@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3289008815522910703}
   - component: {fileID: 8858202924438651136}
   - component: {fileID: -7958148843046564111}
+  - component: {fileID: 4734793214532641486}
   m_Layer: 11
   m_Name: Home Base
   m_TagString: Tower
@@ -281,3 +282,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 500
+  currencyReward: 0
+--- !u!114 &4734793214532641486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111443920340800786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bd76d81f422f2e4fa01027be33c0de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

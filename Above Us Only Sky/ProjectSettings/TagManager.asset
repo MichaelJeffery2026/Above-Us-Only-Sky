@@ -12,6 +12,7 @@ TagManager:
   - Sprite
   - Cooldown
   - Cost
+  - Health
   layers:
   - Default
   - TransparentFX
